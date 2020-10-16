@@ -4,6 +4,7 @@ import { User } from './interfaces/User';
 import { Model } from 'mongoose';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { RelateJournalUserDTO } from './dto/relateJournalUser.dto';
+import { LoginDTO } from './dto/login.dto';
 
 @Injectable()
 export class UserService {
@@ -13,6 +14,10 @@ export class UserService {
 
   async getUsers(): Promise<User[]> {
     return await this.userModel.find();
+  }
+
+  async validateUsersByUserAndPassword(login: LoginDTO): Promise<User[]> {
+    return await this.userModel.find({userName: login.userName, password: login.password});
   }
 
   async getUserById(id: string): Promise<User> {

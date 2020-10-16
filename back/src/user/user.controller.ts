@@ -11,6 +11,7 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { UserService } from './user.service';
 import { User } from './interfaces/User';
 import { RelateJournalUserDTO } from './dto/relateJournalUser.dto';
+import { LoginDTO } from './dto/login.dto';
 
 @Controller('user')
 export class UserController {
@@ -19,6 +20,19 @@ export class UserController {
   @Get('/getUsers')
   getUsers(): Promise<User[]> {
     return this.userService.getUsers();
+  }
+
+  @Post('/validateUsersByUserAndPassword')
+  async validateUsersByUserAndPassword(@Res() res, @Body() login: LoginDTO) : Promise<string>
+  {
+    let message = "";
+    const response= await this.userService.validateUsersByUserAndPassword(login)
+    message =  response.length === 0 ? "User or Password does not exist.": "Login OK.";
+    
+    return res.status(HttpStatus.OK).json({
+    user: response,
+    message:message
+  });
   }
 
   @Get('/getUsersById/:id')
