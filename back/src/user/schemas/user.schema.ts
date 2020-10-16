@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
 
+
 export const UserSchema = new Schema({
   userName: { type: String, required: true },
   passsword: { type: String, required: true },
@@ -16,4 +17,5 @@ export const UserSchema = new Schema({
     default: Date.now,
   },
   isActive: { type: Boolean, required: true },
+  files: [{type: Schema.Types.ObjectId, ref: 'fs.files'}]
 });

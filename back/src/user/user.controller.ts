@@ -10,6 +10,7 @@ import {
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UserService } from './user.service';
 import { User } from './interfaces/User';
+import { RelateJournalUserDTO } from './dto/relateJournalUser.dto';
 
 @Controller('user')
 export class UserController {
@@ -32,6 +33,15 @@ export class UserController {
     return res.status(HttpStatus.CREATED).json({
       message: 'User Successfully Created',
       user: userCreated,
+    });
+  }
+
+  @Post('/relateJournalToUser')
+  async relateJournalToUser(@Res() res, @Body() relation: RelateJournalUserDTO): Promise<User>{
+    const userUpdated = await this.userService.relateJournalToUser(relation);
+    return res.status(HttpStatus.OK).json({
+      message: 'Journal related successfully',
+      user: userUpdated,
     });
   }
 }

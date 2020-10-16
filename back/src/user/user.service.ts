@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './interfaces/User';
 import { Model } from 'mongoose';
 import { CreateUserDTO } from './dto/create-user.dto';
+import { RelateJournalUserDTO } from './dto/relateJournalUser.dto';
 
 @Injectable()
 export class UserService {
@@ -21,5 +22,20 @@ export class UserService {
   async createUser(user: CreateUserDTO): Promise<User> {
     const newUser = new this.userModel(user);
     return await newUser.save();
+  }
+
+  async relateJournalToUser(relation: RelateJournalUserDTO )
+  {
+   return await this.userModel.findByIdAndUpdate(
+    relation.idUser,
+      {
+        $push:{
+          files:relation.idJournal
+        }
+      },
+      {
+        new: true,
+        useFindAndModify: false
+      })
   }
 }
