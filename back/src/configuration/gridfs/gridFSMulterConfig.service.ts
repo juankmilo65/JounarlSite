@@ -11,15 +11,15 @@ export class GridFSMulterConfigService implements MulterOptionsFactory {
     constructor() {
         this.gridFsStorage = new GridFsStorage({
             url: mongoUrl,
-            // file: (req, file) => {
-            //     return new Promise((resolve, reject) => {
-            //         const filename = file.originalname.trim();
-            //         const fileInfo = {
-            //             filename: filename
-            //         };
-            //         resolve(fileInfo);
-            //     });
-            // }
+            file: (req, file) => {
+                return new Promise((resolve, reject) => {
+                    const filename = file.originalname.trim();
+                    const fileInfo = {
+                        filename: filename
+                    };
+                    resolve(fileInfo);
+                });
+            }
         });
     }
 

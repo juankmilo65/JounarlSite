@@ -13,6 +13,5 @@ import {  GridFSMulterConfigService} from "../configuration/gridfs/gridFSMulterC
  ],
   controllers:[FileController],
   providers: [GridFSMulterConfigService, FileService]
-  //providers: [ FileService]
 })
 export class FileModule {}
