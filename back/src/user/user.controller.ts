@@ -30,7 +30,7 @@ export class UserController {
     message =  response.length === 0 ? "User or Password does not exist.": "Login OK.";
     
     return res.status(HttpStatus.OK).json({
-    user: response,
+    user: response.length === 0 ? {}: response[0],
     message:message
   });
   }
