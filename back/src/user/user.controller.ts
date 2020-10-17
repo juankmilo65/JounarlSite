@@ -25,9 +25,8 @@ export class UserController {
   @Post('/validateUsersByUserAndPassword')
   async validateUsersByUserAndPassword(@Res() res, @Body() login: LoginDTO) : Promise<string>
   {
-    let message = "";
     const response= await this.userService.validateUsersByUserAndPassword(login)
-    message =  response.length === 0 ? "User or Password does not exist.": "Login OK.";
+    const message =  response.length === 0 ? "User or Password does not exist.": "Login OK.";
     
     return res.status(HttpStatus.OK).json({
     user: response.length === 0 ? {}: response[0],
@@ -42,12 +41,22 @@ export class UserController {
 
   @Post('/createUser')
   async createUser(@Res() res, @Body() user: CreateUserDTO): Promise<User> {
-    const userCreated = await this.userService.createUser(user);
+    const response = await this.userService.validateUserName(user);
 
-    return res.status(HttpStatus.CREATED).json({
-      message: 'User Successfully Created',
-      user: userCreated,
-    });
+    if(response.length === 0 )
+    {
+      const userCreated = await this.userService.createUser(user);
+      return res.status(HttpStatus.CREATED).json({
+        message: "User Successfully Created.",
+        user: userCreated,
+      });
+    }
+    else
+    {
+      return res.status(HttpStatus.OK).json({
+        message: "User already exist."
+      });
+    }
   }
 
   @Post('/relateJournalToUser')

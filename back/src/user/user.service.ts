@@ -23,6 +23,10 @@ export class UserService {
   async getUserById(id: string): Promise<User> {
     return await this.userModel.findById(id);
   }
+  
+  async validateUserName(user: CreateUserDTO): Promise<User[]> {
+    return await this.userModel.find({userName: user.userName});
+  }
 
   async createUser(user: CreateUserDTO): Promise<User> {
     const newUser = new this.userModel(user);

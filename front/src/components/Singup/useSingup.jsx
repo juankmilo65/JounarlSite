@@ -64,7 +64,8 @@ function UseSignUp() {
     const [lastName, setLastName] = useState("");
     const [message, setMessage] = useState(null);
     
-    const singUp = async () => {
+    const singUp = async (e) => {
+    e.preventDefault();
     setOpenSpinner(true);
     await axios.post(apiServices+"/user/createUser", {
         "userName": userLog,
@@ -73,7 +74,7 @@ function UseSignUp() {
         "lastname": lastName
     }).then(res => {
         setOpenSpinner(false);
-        setMessage(`User created ${res.data.user.userName}`);
+        setMessage(res.data.message);
     }).catch(error => {
         setMessage("Error processing your data");
     });
@@ -84,7 +85,11 @@ const redirectIndex = () => {
 }
 const handleOk = () =>
 {
-    redirectIndex();
+    if (message === 'User Successfully Created.')
+    {
+        redirectIndex();
+    }
+    
 }
 
 const renderRedirect = () => {
@@ -104,7 +109,7 @@ return (
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} onSubmit={()=> singUp()}>
+        <form className={classes.form} onSubmit={(e)=> singUp(e)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
