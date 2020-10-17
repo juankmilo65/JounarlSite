@@ -81,7 +81,7 @@ function UseSigIn (){
 }
 
     const renderRedirect = () => {
-      if (redirect || user !== undefined) {
+      if (redirect || user.user.name !== undefined) {
         history.push('/dashboard');
       }else if(singUpRedirect)
       {
@@ -90,7 +90,7 @@ function UseSigIn (){
   }
     return (
         <div>
-          { user === undefined ?
+          { user.user.name === undefined ?
  <Container component="main" maxWidth="xs">
    <UseSimpleBackdrop spinner ={openSpinner}/>
       <CssBaseline />
