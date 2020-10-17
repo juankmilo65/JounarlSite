@@ -89,6 +89,7 @@ const handleOk = () =>
     {
         redirectIndex();
     }
+    setMessage(null);
     
 }
 
@@ -186,7 +187,7 @@ return (
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="#" variant="body2" onClick={()=>redirectIndex()}>
                 Already have an account? Sign in
               </Link>
             </Grid>
