@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,41 +8,19 @@ import TableRow from '@material-ui/core/TableRow';
 import UseAlertDialog from "../common/useAlertDialog";
 import UseSimpleBackdrop from "../common/useSimpleBackdrop";
 import UseTableCell from "../common/useTableCell";
-import Button from '@material-ui/core/Button';
 import { apiServices } from "../../configuration/constant";
 import { updateUser} from "../Singin/reducer/action"
 import { updateJournals } from "../Singin/reducer/action"
 import {isUpdating} from "../Singin/reducer/action"
 import axios from 'axios';
 
-// Generate Order Data
-function createData(id, name) {
-  return {id, name };
-}
-
-
 const headers = [ "Select" ,"File Name" ];
-
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-const useStyles = makeStyles((theme) => ({
-  seeMore: {
-    marginTop: theme.spacing(3),
-  },
-  title: {
-    flex: '1 1 100%',
-  },
-}));
 
 export default function GenericTable(pops) {
   const dispatch = useDispatch();
-  const history = useHistory();
   const user = useSelector(state=> state.user);
   const [message, setMessage] = useState(null);
   const [openSpinner, setOpenSpinner] = useState(false);
-  const [redirect, setRedirect] = useState(false);
 
 useEffect(()=>{
 
