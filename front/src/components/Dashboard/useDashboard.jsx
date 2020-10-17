@@ -6,11 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import  UseGenericTable  from "../common/useGenericTable";
 import UseCopyright from "../common/useCopyright";
 import  UseAppBar  from "../common/useAppBar";
 import { apiServices } from "../../configuration/constant";
-import axios from 'axios';
+import UseSimpleBackdrop from "../common/useSimpleBackdrop";
+import UseAlertDialog from "../common/useAlertDialog";
+import axios, { post } from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -47,6 +50,8 @@ export default function Pricing() {
   const user = useSelector(state=> state.user);
   const history = useHistory();
   const [fileList, setFileList] = useState([]);
+  const [openSpinner, setOpenSpinner] = useState(false);
+  const [message, setMessage] = useState(null);
 
   useEffect( ()=>{
     getFiles();
@@ -62,11 +67,37 @@ export default function Pricing() {
       history.push('/');
 }
 
+const handleOk = () =>
+{
+    setMessage(null);   
+}
+
+const fileChanged = async (event) =>{
+    let data = new FormData();
+    data.append('file', event.target.files[0]);
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    }
+    post(apiServices+"/file", data, config)
+    .then(res => {
+        setOpenSpinner(false);
+        setMessage("Journal successfully added.");
+    }).catch(error => {
+        setMessage("Error uploading file");
+    });
+
+    console.log(data);
+  }
+
+
   return (
     <div>
     { user.user.name === undefined ?
     <div>{renderRedirect()}</div> :
     <React.Fragment>
+        <UseSimpleBackdrop spinner ={openSpinner}/>
       <CssBaseline />
       <UseAppBar/>
       {/* Hero unit */}
@@ -84,6 +115,10 @@ export default function Pricing() {
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
           <UseGenericTable data={fileList}/>
+          <Button variant="contained" component="label"> 
+          Upload File
+          <input type="file" style={{ display: "none" }} onChange={(e)=>fileChanged(e)} />
+          </Button>
       </Container>
       {/* Footer */}
       <Container maxWidth="md" component="footer" className={classes.footer}>
@@ -92,7 +127,7 @@ export default function Pricing() {
         </Box>
       </Container>
       {/* End footer */}
-    
+      {message !== null?<UseAlertDialog message={message} onChange={handleOk}/>: <div></div>}
     {/* </React.Fragment> */}
     </React.Fragment> 
 }

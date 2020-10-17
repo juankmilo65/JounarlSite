@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useSelector } from "react-redux";
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -37,8 +38,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function GenericTable(pops) {
   const classes = useStyles();
+  const user = useSelector(state=> state.user);
   const [isItemSelected, setIsItemSelected] = useState(false);
   const [selected, setSelected] = useState([]);
+
+useEffect(()=>{
+  user.user.files.map(file=>(
+    handleClick(null, file)
+  ));
+},[user])
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
