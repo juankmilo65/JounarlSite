@@ -59,16 +59,14 @@ export default function Pricing() {
   }
 
   const renderRedirect = () => {
-    
       history.push('/');
-    
 }
 
   return (
     <div>
     { user.user.name === undefined ?
     <div>{renderRedirect()}</div> :
-    <Container> 
+    <React.Fragment>
       <CssBaseline />
       <UseAppBar/>
       {/* Hero unit */}
@@ -96,7 +94,7 @@ export default function Pricing() {
       {/* End footer */}
     
     {/* </React.Fragment> */}
-    </Container> 
+    </React.Fragment> 
 }
 </div>
   );
