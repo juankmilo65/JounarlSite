@@ -8,7 +8,7 @@ function App() {
   return <Switch>
     <Route exact path="/" component={UseSigIn} />
     <Route path="/singUp" component={UseSingUp} />
-    <Route path="/dashboard" component={UseDashboard} /> 
+    <Route path="/dashboard/:page" component={UseDashboard} /> 
   </Switch>
 }
 

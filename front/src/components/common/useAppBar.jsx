@@ -9,6 +9,7 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { updateUser } from "../Singin/reducer/action";
+import { updateJournals } from "../Singin/reducer/action";
 
 const useStyles = makeStyles((theme) => ({
     '@global': {
@@ -35,15 +36,25 @@ export default function Bar() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [redirect, setRedirect] = useState(false);
+    const [redirectMyFavorities, setRedirectMyFavorities] = useState(false);
 
     const logout = () => {
         setRedirect(true);
         dispatch(updateUser({}))
+        dispatch(updateJournals([]))
+    }
+
+    const redirectToMyJournals = () => {
+      setRedirectMyFavorities(true);
     }
 
     const renderRedirect = () => {
         if (redirect) {
           history.push('/');
+        }else if(redirectMyFavorities)
+        {
+          setRedirectMyFavorities(false);
+          history.push('/dashboard/favorities');
         }
     }
 
@@ -57,8 +68,8 @@ return (
           {`Welcome back to the best Journal repository ${user.user.name}`} 
           </Typography>
           <nav>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-            My Journals
+            <Link variant="button" color="textPrimary" href="#" className={classes.link} onClick={()=> redirectToMyJournals()}>
+            My Favorites Journals
             </Link>
           </nav>
           <Button href="#" color="primary" variant="outlined" className={classes.link} onClick={()=> logout()}>

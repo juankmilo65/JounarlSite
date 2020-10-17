@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -41,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
 
 function UseSignUp() {
     const classes = useStyles();
-    const dispatch = useDispatch();
     const history = useHistory();
     const [openSpinner, setOpenSpinner] = useState(false);
     const [redirect, setRedirect] = useState(false);

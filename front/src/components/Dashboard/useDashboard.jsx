@@ -45,22 +45,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Pricing() {
-  const classes = useStyles();
-  const user = useSelector(state=> state.user);
-  const history = useHistory();
-  const [fileList, setFileList] = useState([]);
-  const [openSpinner, setOpenSpinner] = useState(false);
-  const [message, setMessage] = useState(null);
-
-  useEffect( ()=>{
-    getFiles();
-  }, [])
+export default function Pricing(props) {
+    const page = props.match.params.page;
+    const classes = useStyles();
+    const user = useSelector(state=> state.user);
+    const history = useHistory();
+    const [fileList, setFileList] = useState([]);
+    const [openSpinner, setOpenSpinner] = useState(false);
+    const [message, setMessage] = useState(null);
+    
+    
+    useEffect( ()=>{
+        getFiles();
+    }, [])
 
   const getFiles = async function ()
   {
-    const journalResponse = await axios.get(apiServices+"/file/allFiles/pdf");
-    setFileList(journalResponse.data);
+      const journalResponse = await axios.get(apiServices+"/file/allFiles/pdf");
+      setFileList(journalResponse.data);
+      
   }
 
   const renderRedirect = () => {
@@ -104,22 +107,28 @@ const fileChanged = async (event) =>{
       {/* Hero unit */}
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-          Journals
+        {page === "index"? 'Journals List': 'My Journals'}
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" component="p">
-         Here you can find the last populars Journals.
+        {page === "index"? 'Here you can find the last populars Journals.': ''}
+         
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" component="p">
-         Select the Journals of your preference 
+        {page === "index"? 'Select the Journals of your preference.': ''} 
         </Typography>
       </Container>
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
-          <UseGenericTable data={fileList}/>
-          <Button variant="contained" component="label"> 
-          Upload File
-          <input type="file" style={{ display: "none" }} accept="application/pdf" onChange={(e)=>fileChanged(e)} />
-          </Button>
+          <UseGenericTable data={fileList} page={page}/>
+          {
+              page === "index"?
+              <Button variant="contained" component="label"> 
+              Upload File
+              <input type="file" style={{ display: "none" }} accept="application/pdf" onChange={(e)=>fileChanged(e)} />
+              </Button>:
+              <div></div>
+          }
+         
       </Container>
       {/* Footer */}
       <Container maxWidth="md" component="footer" className={classes.footer}>

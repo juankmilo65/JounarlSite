@@ -86,7 +86,7 @@ function UseSigIn (){
 
     const renderRedirect = () => {
       if (redirect || user.user.name !== undefined) {
-        history.push('/dashboard');
+        history.push('/dashboard/index');
       }else if(singUpRedirect)
       {
         history.push('/singUp');

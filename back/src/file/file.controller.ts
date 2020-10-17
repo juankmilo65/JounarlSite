@@ -11,7 +11,6 @@ export class FileController {
     @Post('')
     @UseInterceptors(AnyFilesInterceptor())
     upload(@UploadedFiles() files) {
-        console.log(files)
         const response = [];
         files.forEach(file => {
             const fileReponse = {

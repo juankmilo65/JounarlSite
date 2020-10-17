@@ -1,5 +1,7 @@
 const initialState = {
-    user: {}
+    user: {},
+    journalsSelected: [],
+    isUpdating:  false
 }
 
 const userReducer = (state = initialState, action)=> {
@@ -14,6 +16,16 @@ const userReducer = (state = initialState, action)=> {
                 ...state,
                 user: action.payload
             }
+            case "UPDATE_JOURNAL":
+            return {
+                ...state,
+                journalsSelected: action.payload.length === 0?[]: state.journalsSelected.concat(action.payload) 
+            }
+            case "IS_UPDATING":
+                return {
+                    ...state,    
+                    isUpdating: action.payload
+                }
             default:
                 return state;
     }
