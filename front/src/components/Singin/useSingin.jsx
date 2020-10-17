@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -53,7 +54,10 @@ function Copyright() {
 function UseSigIn (){
     const classes = useStyles();
     const dispatch = useDispatch();
-    const user = useSelector(state=> state.user)
+    const history = useHistory();
+    const user = useSelector(state=> state.user);
+    const [redirect, setRedirect] = useState(false);
+    const [singUpRedirect, setSingUpRedirect] = useState(false);
     const [userLog, setUserLog] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState(null);
@@ -67,6 +71,7 @@ function UseSigIn (){
         }).then(res => {
             if(res.data.message === "Login OK")
             {
+                redirectIndex();
                 dispatch(updateUser(res.data.user))
             }
             setOpenSpinner(false);
@@ -79,6 +84,22 @@ function UseSigIn (){
       setMessage(null);
     }
 
+    const redirectIndex = () => {
+      setRedirect(true);
+  }
+
+  const redirectSingUp = () => {
+    setSingUpRedirect(true);
+}
+
+    const renderRedirect = () => {
+      if (redirect) {
+          
+      }else if(singUpRedirect)
+      {
+        history.push('/singUp');
+      }
+  }
     return (
         <div>
  <Container component="main" maxWidth="xs">
@@ -98,9 +119,7 @@ function UseSigIn (){
             required
             fullWidth
             id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            label="User"
             autoFocus
             onChange={event => {
                 const { value } = event.target;
@@ -133,13 +152,8 @@ function UseSigIn (){
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="#" variant="body2" onClick={()=>redirectSingUp()}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -150,6 +164,7 @@ function UseSigIn (){
         <Copyright />
       </Box>
       {message !== null?<UseAlertDialog message={message} onChange={handleClearMessage}/>: <div></div>}
+      {renderRedirect()}
     </Container>
         </div>
     )
