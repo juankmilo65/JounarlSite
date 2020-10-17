@@ -16,20 +16,8 @@ import { updateUser} from "./reducer/action"
 import { apiServices } from "../../configuration/constant";
 import UseAlertDialog from "../common/useAlertDialog";
 import UseSimpleBackdrop from "../common/useSimpleBackdrop";
+import UseCopyright from "../common/useCopyright";
 import axios from 'axios';
-
-function Copyright() {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="https://material-ui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
 
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -69,9 +57,8 @@ function UseSigIn (){
             "userName": userLog,
             "password": password
         }).then(res => {
-            if(res.data.message === "Login OK")
+            if(res.data.message === "Login OK.")
             {
-                redirectIndex();
                 dispatch(updateUser(res.data.user))
             }
             setOpenSpinner(false);
@@ -81,6 +68,7 @@ function UseSigIn (){
     
     const handleClearMessage = () =>
     {
+      redirectIndex();
       setMessage(null);
     }
 
@@ -93,8 +81,8 @@ function UseSigIn (){
 }
 
     const renderRedirect = () => {
-      if (redirect) {
-          
+      if (redirect || user !== undefined) {
+        history.push('/dashboard');
       }else if(singUpRedirect)
       {
         history.push('/singUp');
@@ -102,6 +90,7 @@ function UseSigIn (){
   }
     return (
         <div>
+          { user === undefined ?
  <Container component="main" maxWidth="xs">
    <UseSimpleBackdrop spinner ={openSpinner}/>
       <CssBaseline />
@@ -161,11 +150,13 @@ function UseSigIn (){
         </div>
       </div>
       <Box mt={8}>
-        <Copyright />
+        <UseCopyright />
       </Box>
       {message !== null?<UseAlertDialog message={message} onChange={handleClearMessage}/>: <div></div>}
       {renderRedirect()}
-    </Container>
+    </Container>:
+    <div>{renderRedirect()}</div>
+}
         </div>
     )
 }

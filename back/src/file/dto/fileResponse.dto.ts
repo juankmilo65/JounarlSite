@@ -1,5 +1,6 @@
 export class FileResponseDTO
 {
+    readonly id: String;
     readonly filename: String; 
     readonly length: Number;
     readonly chunkSize: Number;

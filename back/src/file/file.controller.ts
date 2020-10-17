@@ -44,7 +44,7 @@ export class FileController {
     }
 
     @Get(':id')
-    async getFile(@Param('id') id: string, @Res() res) {        
+    async getFile(@Param('id') id: string, @Res() res) {   
         const file = await this.fileService.findInfo(id)
         const filestream = await this.fileService.readStream(id)
         if(!filestream){
@@ -52,5 +52,11 @@ export class FileController {
         }
         res.header('Content-Type', file.contentType);
         return filestream.pipe(res)
+    }
+
+    @Get('/allFiles/:type')
+    async getFiles(@Param('type') type: string):Promise<FileResponseDTO[]> 
+    {
+        return await this.fileService.getFiles("application/"+type);
     }
 }

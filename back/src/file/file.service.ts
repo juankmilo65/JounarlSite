@@ -19,6 +19,20 @@ export class FileService {
       async readStream(id: string): Promise<GridFSBucketReadStream> {
         return await this.fileModel.readFileStream(id);
       }
+      
+      async getFiles(type: string): Promise<FileResponseDTO[]> {
+        const listFiles = []
+        const result = await this.fileModel.find({contentType: type})
+        .then(result=> result);
+        result.map(o=>{
+            listFiles.push({
+                filename: o.filename,
+                id: o._id.toHexString()
+            })
+        })
+        
+        return listFiles
+      }
 
       async findInfo(id: string): Promise<FileResponseDTO> {
         const result = await this.fileModel
@@ -29,8 +43,8 @@ export class FileService {
           length: result.length,
           chunkSize: result.chunkSize,
           md5: result.md5,
-          contentType: result.contentType
-
+          contentType: result.contentType,
+          id: result._id.toHexString()
         }
       }
 }
