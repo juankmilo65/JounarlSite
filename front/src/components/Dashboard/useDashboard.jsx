@@ -83,6 +83,7 @@ const fileChanged = async (event) =>{
     post(apiServices+"/file", data, config)
     .then(res => {
         setOpenSpinner(false);
+        getFiles();
         setMessage("Journal successfully added.");
     }).catch(error => {
         setMessage("Error uploading file");
@@ -117,7 +118,7 @@ const fileChanged = async (event) =>{
           <UseGenericTable data={fileList}/>
           <Button variant="contained" component="label"> 
           Upload File
-          <input type="file" style={{ display: "none" }} onChange={(e)=>fileChanged(e)} />
+          <input type="file" style={{ display: "none" }} accept="application/pdf" onChange={(e)=>fileChanged(e)} />
           </Button>
       </Container>
       {/* Footer */}
