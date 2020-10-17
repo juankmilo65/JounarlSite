@@ -37,6 +37,7 @@ export default function Bar() {
     const history = useHistory();
     const [redirect, setRedirect] = useState(false);
     const [redirectMyFavorities, setRedirectMyFavorities] = useState(false);
+    const [redirectIndex, setRedirectIndex] = useState(false);
 
     const logout = () => {
         setRedirect(true);
@@ -48,6 +49,10 @@ export default function Bar() {
       setRedirectMyFavorities(true);
     }
 
+    const redirectToIndex =()=> {
+      setRedirectIndex(true)
+    }
+
     const renderRedirect = () => {
         if (redirect) {
           history.push('/');
@@ -55,6 +60,10 @@ export default function Bar() {
         {
           setRedirectMyFavorities(false);
           history.push('/dashboard/favorities');
+        }else if(redirectIndex)
+        {
+          setRedirectIndex(false)
+          history.push('/dashboard/index');
         }
     }
 
@@ -67,6 +76,11 @@ return (
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
           {`Welcome back to the best Journal repository ${user.user.name}`} 
           </Typography>
+          <nav>
+            <Link variant="button" color="textPrimary" href="#" className={classes.link} onClick={()=> redirectToIndex()}>
+           Index
+            </Link>
+          </nav>
           <nav>
             <Link variant="button" color="textPrimary" href="#" className={classes.link} onClick={()=> redirectToMyJournals()}>
             My Favorites Journals

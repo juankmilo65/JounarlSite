@@ -7,7 +7,7 @@ export default function TableCellJournal(props) {
         props.onClick(event,rowId)
     }
   return (
-    <React.Fragment>
+    <div>
     { props.page === "index" ?
     <div>
             <TableCell padding="checkbox">
@@ -34,6 +34,6 @@ export default function TableCellJournal(props) {
                         :<div></div>}
             </div>
     }
-    </React.Fragment>
+    </div>
   )
 }

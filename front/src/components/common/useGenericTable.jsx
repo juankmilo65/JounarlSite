@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import UseAlertDialog from "../common/useAlertDialog";
 import UseSimpleBackdrop from "../common/useSimpleBackdrop";
 import UseTableCell from "../common/useTableCell";
+import Button from '@material-ui/core/Button';
 import { apiServices } from "../../configuration/constant";
 import { updateUser} from "../Singin/reducer/action"
 import { updateJournals } from "../Singin/reducer/action"
@@ -21,12 +22,6 @@ function createData(id, name) {
   return {id, name };
 }
 
-const rows = [
-  createData(1,"Test1"),
-  createData(2,"Test2"),
-  createData(3,"Test3"),
-  createData(4,"Test4"),
-];
 
 const headers = [ "Select" ,"File Name" ];
 
@@ -44,11 +39,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GenericTable(pops) {
-  const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector(state=> state.user);
   const [message, setMessage] = useState(null);
   const [openSpinner, setOpenSpinner] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
 useEffect(()=>{
 
@@ -132,20 +128,12 @@ const handleClick = async (event, id) => {
             const isItemSelected = isSelected(row.id);
  const labelId = `enhanced-table-checkbox-${index}`
  return (
-   
-<TableRow key={row.id}>
-<UseTableCell page={pops.page} isItemSelected={isItemSelected} labelId={labelId} rowId ={row.id} fileName={row.filename} onClick={handleClick}/>
-            
-          </TableRow>
-          
+ <TableRow key={row.id}>
+   <UseTableCell page={pops.page} isItemSelected={isItemSelected} labelId={labelId} rowId ={row.id} fileName={row.filename} onClick={handleClick}/>
+   </TableRow>
           )})}
         </TableBody>
       </Table>
-      <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more orders
-        </Link>
-      </div>
       {message !== null?<UseAlertDialog message={message} onChange={handleOk}/>: <div></div>}
     </React.Fragment>
   );
