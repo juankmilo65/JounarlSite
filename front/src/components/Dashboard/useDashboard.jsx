@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -42,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Pricing() {
   const classes = useStyles();
+  const user = useSelector(state=> state.user);
+  const history = useHistory();
   const [fileList, setFileList] = useState([]);
 
   useEffect( ()=>{
@@ -54,8 +58,17 @@ export default function Pricing() {
     setFileList(journalResponse.data);
   }
 
+  const renderRedirect = () => {
+    
+      history.push('/');
+    
+}
+
   return (
-    <React.Fragment>
+    <div>
+    { user.user.name === undefined ?
+    <div>{renderRedirect()}</div> :
+    <Container> 
       <CssBaseline />
       <UseAppBar/>
       {/* Hero unit */}
@@ -81,6 +94,10 @@ export default function Pricing() {
         </Box>
       </Container>
       {/* End footer */}
-    </React.Fragment>
+    
+    {/* </React.Fragment> */}
+    </Container> 
+}
+</div>
   );
 }

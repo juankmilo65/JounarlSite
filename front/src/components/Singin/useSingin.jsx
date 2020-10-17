@@ -68,7 +68,11 @@ function UseSigIn (){
     
     const handleClearMessage = () =>
     {
-      redirectIndex();
+      if(user.user.name !== undefined)
+      {
+        redirectIndex();
+      }
+      
       setMessage(null);
     }
 
