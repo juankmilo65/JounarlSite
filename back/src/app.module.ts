@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
-import { JournalModule } from "./journal/journal.module";
 import { MongooseModule } from '@nestjs/mongoose';
 import { FileModule } from './file/file.module';
 import  config  from "./configuration/config";
@@ -11,7 +10,6 @@ const mongoUrl = `mongodb+srv://${config.mongo.user}:${config.mongo.password}@cl
   imports: [
     MongooseModule.forRoot(mongoUrl),
     UserModule,
-    JournalModule,
     FileModule
   ]
 })

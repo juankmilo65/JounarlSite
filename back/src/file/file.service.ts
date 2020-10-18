@@ -1,5 +1,5 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { InjectConnection, InjectModel } from '@nestjs/mongoose'
+import { InjectConnection } from '@nestjs/mongoose'
 import { Connection } from 'mongoose'
 import { MongoGridFS } from 'mongo-gridfs'
 import { GridFSBucketReadStream } from 'mongodb' 
