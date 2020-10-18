@@ -5,11 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import file from "./CV Juan Camilo Morales - English.pdf";
 import { Document, Page, pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-
-
 
 const options = {
   cMapUrl: 'cmaps/',
@@ -49,7 +46,6 @@ const goToNextPage = () =>
   setPageNumber(pageNumber + 1)
 }
   
-
   return (
     <div>
      
@@ -64,7 +60,7 @@ const goToNextPage = () =>
         {props.message === "PDF"?
          <DialogContentText id="alert-dialog-description">
         <Document
-        file={file}
+        file={props.file}
         onLoadSuccess={onDocumentLoadSuccess}
         options={options}
       >
