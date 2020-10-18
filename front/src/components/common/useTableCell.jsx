@@ -48,7 +48,7 @@ const handleClose = () => {
                 View
               </Link>
                         </TableCell>
-                        {openModal ?<UseAlertDialog message={"test"} onChange={handleClose}/>: <div></div>}  
+                        {openModal ?<UseAlertDialog message={"PDF"} onChange={handleClose}/>: <div></div>}  
                        
                         </div>
                         :<div></div>}
