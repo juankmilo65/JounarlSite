@@ -45,6 +45,30 @@ useEffect(()=>{
       
   }
 
+  const setRealtion = async (isSelected, idUser, id, newSelected, selectedIndexMoreThanCero, selectedIndex) =>
+  {
+  setOpenSpinner(true);
+   return await axios.post(apiServices+"/user/relateJournalToUser", {
+      "idUser": idUser,
+      "idJournal": id,
+      "isSelected": isSelected
+  }).then(res => {
+    dispatch(updateUser(res.data.user))
+    setOpenSpinner(false);
+    setMessage(res.data.message);
+    return isSelected ? 
+    newSelected.concat(user.journalsSelected, id) :
+    selectedIndexMoreThanCero && selectedIndex > 0 ?
+    newSelected.concat(user.journalsSelected.slice(0, selectedIndex),user.journalsSelected.slice(selectedIndex + 1)):
+    selectedIndexMoreThanCero === null && selectedIndex === 0 ?
+    newSelected.concat(user.journalsSelected.slice(1)) :
+    newSelected.concat(user.journalsSelected.slice(0, -1));
+  }).catch(() => {
+    setOpenSpinner(false);
+      setMessage("An error occurred with the selection of your Journal");
+  });
+  }
+
 const handleClick = async (event, id) => {
   const selectedIndex = user.journalsSelected.indexOf(id);
 
@@ -56,30 +80,14 @@ const handleClick = async (event, id) => {
     newSelected = newSelected.concat(user.journalsSelected, id);
   }else
   {
-    setOpenSpinner(true)
-    console.log(apiServices)
-      await axios.post(apiServices+"/user/relateJournalToUser", {
-        "idUser": user.user._id,
-        "idJournal": id
-    }).then(res => {
-      dispatch(updateUser(res.data.user))
-      setOpenSpinner(false);
-      setMessage(res.data.message);
-      newSelected = newSelected.concat(user.journalsSelected, id);
-    }).catch(() => {
-      setOpenSpinner(false);
-        setMessage("An error occurred with the selection of your Journal");
-    });
+    newSelected = await setRealtion(true, user.user._id, id, newSelected);
   }
   }else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(user.journalsSelected.slice(1));  
+    newSelected = await setRealtion(false, user.user._id, id, newSelected, null, selectedIndex);
   }else if (selectedIndex === user.journalsSelected.length - 1) {
-    newSelected = newSelected.concat(user.journalsSelected.slice(0, -1));
+    newSelected = await setRealtion(false, user.user._id, id, newSelected, true, selectedIndex);
   }else if (selectedIndex > 0) {
-    newSelected = newSelected.concat(
-      user.journalsSelected.slice(0, selectedIndex),
-      user.journalsSelected.slice(selectedIndex + 1),
-    );
+    newSelected = await setRealtion(false, user.user._id, id, newSelected, true, selectedIndex);
   }
  
   dispatch(updateJournals(newSelected));

@@ -35,6 +35,7 @@ export class UserService {
 
   async relateJournalToUser(relation: RelateJournalUserDTO )
   {
+    if(relation.isSelected)  {
    return await this.userModel.findByIdAndUpdate(
     relation.idUser,
       {
@@ -46,5 +47,19 @@ export class UserService {
         new: true,
         useFindAndModify: false
       })
+    }else
+    {
+      return await this.userModel.findByIdAndUpdate(
+        relation.idUser,
+          {
+            $pull:{
+              files:relation.idJournal
+            }
+          },
+          {
+            new: true,
+            useFindAndModify: false
+          })
+    }
   }
 }

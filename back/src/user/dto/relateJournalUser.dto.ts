@@ -7,4 +7,8 @@ export class RelateJournalUserDTO {
 
     @ApiProperty()
     readonly idJournal: String;
+
+    @ApiProperty()
+    readonly isSelected: Boolean;
+
 }

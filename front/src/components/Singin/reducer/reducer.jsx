@@ -19,7 +19,7 @@ const userReducer = (state = initialState, action)=> {
             case "UPDATE_JOURNAL":
             return {
                 ...state,
-                journalsSelected: action.payload.length === 0?[]: state.journalsSelected.concat(action.payload) 
+                journalsSelected: action.payload.length === 0?[]: action.payload 
             }
             case "IS_UPDATING":
                 return {
