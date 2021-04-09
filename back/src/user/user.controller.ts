@@ -12,6 +12,8 @@ import { UserService } from './user.service';
 import { User } from './interfaces/User';
 import { RelateJournalUserDTO } from './dto/relateJournalUser.dto';
 import { LoginDTO } from './dto/login.dto';
+import { catchError, map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
 
 @Controller('user')
 export class UserController {
@@ -22,16 +24,10 @@ export class UserController {
     return this.userService.getUsers();
   }
 
-  @Post('/validateUsersByUserAndPassword')
-  async validateUsersByUserAndPassword(@Res() res, @Body() login: LoginDTO) : Promise<string>
+  @Post('/login')
+  login(@Body() login: LoginDTO) : Observable<string>
   {
-    const response= await this.userService.validateUsersByUserAndPassword(login)
-    const message =  response.length === 0 ? "User or Password does not exist.": "Login OK.";
-    
-    return res.status(HttpStatus.OK).json({
-    user: response.length === 0 ? {}: response[0],
-    message:message
-  });
+    return this.userService.login(login);
   }
 
   @Get('/getUsersById/:id')
@@ -40,24 +36,20 @@ export class UserController {
   }
 
   @Post('/createUser')
-  async createUser(@Res() res, @Body() user: CreateUserDTO): Promise<User> {
-    const responseUserName = await this.userService.validateUserName(user);
-    const responseEmail = await this.userService.validateEmail(user);
-
-    if(responseUserName.length === 0  ||  responseEmail.length === 0)
+  createUser(@Body() user: CreateUserDTO): Observable<User | any> {
+    const responseUser =  this.userService.validateUser(user) as unknown as any[] ;
+    
+    if(responseUser.length === 0)
     {
         user.email = user.email.toLocaleLowerCase();
-        const userCreated = await this.userService.createUser(user);
-        return res.status(HttpStatus.CREATED).json({
-          message: "User Successfully Created.",
-          user: userCreated,
-        });
+        return this.userService.createUser(user).pipe(
+          map((user:User) => user),
+          catchError(err=>of({error: err.message})) 
+        );
     }
     else
     {
-      return res.status(HttpStatus.OK).json({
-        message: responseUserName.length === 0 ?"User already exist." : "Email already exist."
-      });
+      return throwError({error: 'User already exist.'});
     }
   }
 

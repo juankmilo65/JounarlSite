@@ -30,7 +30,7 @@ export class UserService {
 
   }
 
-  async login(login: LoginDTO): Promise<Observable<string>>{
+  login(login: LoginDTO): Observable<string>{
     return  this.validateUsersByUserAndPassword(login).pipe(
       switchMap((user:User)=>{
         if(user){
@@ -72,16 +72,16 @@ export class UserService {
     )
   }
   
-  async validateUserName(user: CreateUserDTO): Promise<User[]> {
-    return await this.userModel.find({userName: user.userName});
+  validateUser(user: CreateUserDTO): Promise<User[]> {
+    return this.userModel.find({userName: user.userName, email: user.email})
+    .then(users =>{
+      return users;
+    })
+    ;
   }
-
-  async validateEmail(user: CreateUserDTO): Promise<User[]> {
-    return await this.userModel.find({email: user.email});
-  }
-
-  async createUser(user: CreateUserDTO): Promise<Observable<User>> {
-     return this.authService.hashPassword(user.password as string).pipe(
+  
+  createUser(user: CreateUserDTO): Observable<User> {
+    return this.authService.hashPassword(user.password as string).pipe(
       switchMap((passwordHash:string)=>{
         const newUser = new this.userModel(user);
         newUser.password=passwordHash
