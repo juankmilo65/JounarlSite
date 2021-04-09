@@ -4,7 +4,7 @@ import { Schema } from 'mongoose';
 export const UserSchema = new Schema({
   email: { type: String, required: true },
   userName: { type: String, required: true },
-  password: { type: String, required: true },
+  password: { type: String},
   name: { type: String, required: true },
   lastname: { type: String, required: true },
   imgProfile: { type: String, default: '' },
