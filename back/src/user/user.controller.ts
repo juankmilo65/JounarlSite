@@ -41,20 +41,22 @@ export class UserController {
 
   @Post('/createUser')
   async createUser(@Res() res, @Body() user: CreateUserDTO): Promise<User> {
-    const response = await this.userService.validateUserName(user);
+    const responseUserName = await this.userService.validateUserName(user);
+    const responseEmail = await this.userService.validateEmail(user);
 
-    if(response.length === 0 )
+    if(responseUserName.length === 0  ||  responseEmail.length === 0)
     {
-      const userCreated = await this.userService.createUser(user);
-      return res.status(HttpStatus.CREATED).json({
-        message: "User Successfully Created.",
-        user: userCreated,
-      });
+        user.email = user.email.toLocaleLowerCase();
+        const userCreated = await this.userService.createUser(user);
+        return res.status(HttpStatus.CREATED).json({
+          message: "User Successfully Created.",
+          user: userCreated,
+        });
     }
     else
     {
       return res.status(HttpStatus.OK).json({
-        message: "User already exist."
+        message: responseUserName.length === 0 ?"User already exist." : "Email already exist."
       });
     }
   }
