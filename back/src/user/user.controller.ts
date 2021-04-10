@@ -25,9 +25,13 @@ export class UserController {
   }
 
   @Post('/login')
-  login(@Body() login: LoginDTO) : Observable<string>
+  login(@Body() login: LoginDTO) : Observable<any>
   {
-    return this.userService.login(login);
+    return this.userService.login(login).pipe(
+      map((jwt:string)=>{
+        return {access_token: jwt};
+      })
+    );
   }
 
   @Get('/getUsersById/:id')
@@ -36,10 +40,9 @@ export class UserController {
   }
 
   @Post('/createUser')
-  createUser(@Body() user: CreateUserDTO): Observable<User | any> {
-    const responseUser =  this.userService.validateUser(user) as unknown as any[] ;
-    
-    if(responseUser.length === 0)
+  async createUser(@Body() user: CreateUserDTO): Promise<User | any> {
+    const responseUser =  await this.userService.validateUser(user);
+    if(!responseUser)
     {
         user.email = user.email.toLocaleLowerCase();
         return this.userService.createUser(user).pipe(

@@ -20,15 +20,20 @@ export class UserService {
   ) {}
 
   async getUsers(): Promise<any> {
-    const usersResult =[];
+    const result=[];
     return from(this.userModel.find()).pipe(
       map((users:User[])=>{
-        users.forEach(function (user) {delete user.password});
-        return usersResult
+        users.map(user=>{ result.push(this.mapUser(user))} );
+        return result
       })
     )
-
   }
+
+  async validateUser(user: CreateUserDTO): Promise<any> {
+    return  await this.userModel.findOne({userName: user.userName, email: user.email});
+  }
+  
+
 
   login(login: LoginDTO): Observable<string>{
     return  this.validateUsersByUserAndPassword(login).pipe(
@@ -66,29 +71,22 @@ export class UserService {
   async getUserById(id: string): Promise<any> {
     return from(this.userModel.findById(id)).pipe(
       map((user:User)=>{
-        const {password, ...result} = user;
-        return result
+        return this.mapUser(user)
       })
     )
   }
   
-  validateUser(user: CreateUserDTO): Promise<User[]> {
-    return this.userModel.find({userName: user.userName, email: user.email})
-    .then(users =>{
-      return users;
-    })
-    ;
-  }
+ 
   
   createUser(user: CreateUserDTO): Observable<User> {
     return this.authService.hashPassword(user.password as string).pipe(
       switchMap((passwordHash:string)=>{
         const newUser = new this.userModel(user);
+        console.log(newUser)
         newUser.password=passwordHash
         return from( newUser.save()).pipe(
           map((user: User) => {
-            const{password, ...result} = user;
-            return this.mapUser(result);
+            return this.mapUser(user);
           }),
           catchError(err => throwError(err))
         )
@@ -134,17 +132,17 @@ export class UserService {
   }
 
 
-  mapUser(result: any): User
+  mapUser(result: any): any
   {
-    this.userResult.name = result.name;
-    this.userResult.email = result.email;
-    this.userResult.userName = result.userName;
-    this.userResult.name = result.name;
-    this.userResult.lastname = result.lastname;
-    this.userResult.imgProfile= result.imgProfile;
-    this.userResult.lastLogin = result.lastLogin;
-    this.userResult.createAt = result.createAt;
-
-    return this.userResult;
+    const user ={
+      name : result.name,
+      email : result.email,
+      userName : result.userName,
+      lastname: result.lastname,
+      imgProfile : result.imgProfile,
+      lastLogin : result.lastLogin,
+      createAt: result.createAt
+    }
+    return user;
   }
 }
