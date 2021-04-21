@@ -41,6 +41,7 @@ export class UserController {
 
   @Post('/createUser')
   async createUser(@Body() user: CreateUserDTO): Promise<User | any> {
+    if(Object.entries(user).length === 0) return {error: "Object cannot be empty"};
     const responseUser =  await this.userService.validateUser(user);
     if(!responseUser)
     {

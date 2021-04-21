@@ -23,7 +23,7 @@ export class UserService {
     const result=[];
     return from(this.userModel.find()).pipe(
       map((users:User[])=>{
-        users.map(user=>{ result.push(this.mapUser(user))} );
+        users.map(user=>{ result.push(this.mapUser(user, true))} );
         return result
       })
     )
@@ -48,12 +48,15 @@ export class UserService {
   } 
 
   validateUsersByUserAndPassword(login: LoginDTO): Observable<User> {
+  
     return this.findByEmail(login.email as string).pipe(
       switchMap((user:User) =>  this.authService.comparePasswords(login.password as string, user.password as string).pipe(
         map((match:boolean)=>{
+          console.log(match)
           if(match){
+            console.log(user);
             const {password, ...result} = user;
-            return this.mapUser(result);
+            return this.mapUser(result, false);
             }else
             {
               throw Error
@@ -71,7 +74,7 @@ export class UserService {
   async getUserById(id: string): Promise<any> {
     return from(this.userModel.findById(id)).pipe(
       map((user:User)=>{
-        return this.mapUser(user)
+        return this.mapUser(user, true)
       })
     )
   }
@@ -86,7 +89,7 @@ export class UserService {
         newUser.password=passwordHash
         return from( newUser.save()).pipe(
           map((user: User) => {
-            return this.mapUser(user);
+            return this.mapUser(user, false);
           }),
           catchError(err => throwError(err))
         )
@@ -132,9 +135,10 @@ export class UserService {
   }
 
 
-  mapUser(result: any): any
+  mapUser(result: any, isGet: boolean): any
   {
     const user ={
+      id: isGet? result._id: null,
       name : result.name,
       email : result.email,
       userName : result.userName,
