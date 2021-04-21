@@ -12,12 +12,12 @@ import { UserService } from './user.service';
 import { User } from './interfaces/User';
 import { RelateJournalUserDTO } from './dto/relateJournalUser.dto';
 import { LoginDTO } from './dto/login.dto';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,) {}
 
   @Get('/getUsers')
   getUsers(): Promise<User[]> {
@@ -25,13 +25,10 @@ export class UserController {
   }
 
   @Post('/login')
-  login(@Body() login: LoginDTO) : Observable<any>
+  login(@Body() login: LoginDTO) : any
   {
     return this.userService.login(login).pipe(
-      map((jwt:string)=>{
-        return {access_token: jwt};
-      })
-    );
+      map((jwt:string)=> jwt));
   }
 
   @Get('/getUsersById/:id')

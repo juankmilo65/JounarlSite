@@ -6,14 +6,13 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { RelateJournalUserDTO } from './dto/relateJournalUser.dto';
 import { LoginDTO } from './dto/login.dto';
 import { AuthService } from 'src/auth/auth.service';
-import { from, Observable, throwError } from 'rxjs';
+import { from, Observable, throwError, concat } from 'rxjs';
 import{ switchMap, map, catchError} from 'rxjs/operators'
 
 
 @Injectable()
 export class UserService {
-  private userResult : User;
-
+ 
   constructor(
     @InjectModel('User') private readonly userModel: Model<User>,
     private authService : AuthService
@@ -33,42 +32,49 @@ export class UserService {
     return  await this.userModel.findOne({userName: user.userName, email: user.email});
   }
   
-
-
   login(login: LoginDTO): Observable<string>{
     return  this.validateUsersByUserAndPassword(login).pipe(
-      switchMap((user:User)=>{
-        if(user){
-          return this.authService.generateJWT(user).pipe(map((jwt: string) => jwt));
-        }else{
-          return 'Wrong Credentials';
-        }
+      map((response:string)=>{
+          return response
       })
     )
   } 
 
-  validateUsersByUserAndPassword(login: LoginDTO): Observable<User> {
-  
-    return this.findByEmail(login.email as string).pipe(
-      switchMap((user:User) =>  this.authService.comparePasswords(login.password as string, user.password as string).pipe(
-        map((match:boolean)=>{
-          console.log(match)
-          if(match){
-            console.log(user);
-            const {password, ...result} = user;
-            return this.mapUser(result, false);
-            }else
-            {
-              throw Error
-            }
-          })
-        )
-      )
+  validateUsersByUserAndPassword(login: LoginDTO): Observable<any> {
+   return  from(this.userModel.findOne({userName: login.userName})).pipe(
+      map((user:User) =>{
+       
+        if(user)
+        {
+           return this.test(login, user);
+        }else
+        {
+          return 'Wrong User';
+        }
+      })
     )
   }
 
-  findByEmail(email: string): Observable<User> {
-    return from(this.userModel.findOne({userName: email}));
+  test (login:LoginDTO, user:User)
+  {
+    const match = this.authService.comparePasswords(login.password as string, user.password as string).toPromise();
+
+    if(match)
+    {
+      return this.authService.generateJWT(user).toPromise();
+    }else
+    {
+      return 'Wrong Credentials';
+    }
+  
+  }
+
+  findByUserName(user: string): Observable<User> {
+    return from(this.userModel.findOne({userName: user})).pipe(
+      map((user:User) =>{
+        return this.mapUser(user, false);
+      })
+    );
   }
 
   async getUserById(id: string): Promise<any> {
@@ -85,7 +91,6 @@ export class UserService {
     return this.authService.hashPassword(user.password as string).pipe(
       switchMap((passwordHash:string)=>{
         const newUser = new this.userModel(user);
-        console.log(newUser)
         newUser.password=passwordHash
         return from( newUser.save()).pipe(
           map((user: User) => {
