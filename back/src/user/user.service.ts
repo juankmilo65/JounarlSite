@@ -53,7 +53,7 @@ export class UserService {
                 ).toPromise()
 
                 if (isValid) {
-                  return this.authService.generateJWT(user).toPromise();
+                  return this.authService.generateJWT(this.mapUser(user, true)).toPromise();
                 } else {
                   return 'Wrong Credentials';
                 }
@@ -64,16 +64,6 @@ export class UserService {
         }
       })
     )
-  }
-
-  test(login: LoginDTO, user: User) {
-    console.log(login.password as string);
-    console.log(user.password as string);
-
-
-
-
-
   }
 
   findByUserName(user: string): Observable<User> {

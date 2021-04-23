@@ -27,11 +27,9 @@ export class UserController {
   @Post('/login')
   login(@Body() login: LoginDTO): any {
     return from(this.userService.login(login)).pipe(
-      // map((jwt: string) => {
-      //   return { acces_token: jwt }
-      // }));
-
-      map((jwt: string) => jwt));
+      map((jwt: string) => {
+        return { access_token: jwt }
+      }));
   }
 
   @Get('/getUsersById/:id')
