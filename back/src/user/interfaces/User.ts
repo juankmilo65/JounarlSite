@@ -9,5 +9,6 @@ export interface User extends Document {
   readonly imgProfile: String;
   readonly lastLogin: Date;
   readonly createAt: Date;
+  readonly role: String;
   password: String;
 }

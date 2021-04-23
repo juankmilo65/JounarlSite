@@ -6,6 +6,7 @@ import {
   Param,
   Res,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UserService } from './user.service';
@@ -14,18 +15,23 @@ import { RelateJournalUserDTO } from './dto/relateJournalUser.dto';
 import { LoginDTO } from './dto/login.dto';
 import { catchError, map, tap } from 'rxjs/operators';
 import { from, Observable, of, throwError } from 'rxjs';
+import { hasRoles } from 'src/auth/decorators/roles.decorator';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-guards';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService,) { }
 
+  @hasRoles('Admin')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('/getUsers')
   getUsers(): Promise<User[]> {
     return this.userService.getUsers();
   }
 
   @Post('/login')
-  login(@Body() login: LoginDTO): any {
+  login(@Body() login: LoginDTO): Observable<any> {
     return from(this.userService.login(login)).pipe(
       map((jwt: string) => {
         return { access_token: jwt }
@@ -33,7 +39,7 @@ export class UserController {
   }
 
   @Get('/getUsersById/:id')
-  getUsersById(@Param('id') id: string): Promise<User> {
+  getUsersById(@Param('id') id: string): Observable<User> {
     return this.userService.getUserById(id);
   }
 

@@ -5,9 +5,9 @@ import { Model } from 'mongoose';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { RelateJournalUserDTO } from './dto/relateJournalUser.dto';
 import { LoginDTO } from './dto/login.dto';
-import { AuthService } from 'src/auth/auth.service';
-import { from, Observable, throwError, concat, of } from 'rxjs';
-import { switchMap, map, catchError, mapTo, mergeMap, concatMap, delay } from 'rxjs/operators'
+import { AuthService } from 'src/auth/services/auth.service';
+import { from, Observable, throwError, of } from 'rxjs';
+import { switchMap, map, catchError, concatMap } from 'rxjs/operators'
 
 @Injectable()
 export class UserService {
@@ -19,7 +19,14 @@ export class UserService {
 
   async getUsers(): Promise<any> {
     const result = [];
-    return from(this.userModel.find()).pipe(
+
+
+    // return from(this.userModel.find().populate('role').then(users => {
+    //   console.log(users[0].role)
+    //   return users;
+    // }))
+
+    return from(this.userModel.find().populate('role')).pipe(
       map((users: User[]) => {
         users.map(user => { result.push(this.mapUser(user, true)) });
         return result
@@ -74,15 +81,13 @@ export class UserService {
     );
   }
 
-  async getUserById(id: string): Promise<any> {
+  getUserById(id: string): Observable<any> {
     return from(this.userModel.findById(id)).pipe(
       map((user: User) => {
         return this.mapUser(user, true)
       })
     )
   }
-
-
 
   createUser(user: CreateUserDTO): Observable<User> {
     return this.authService.hashPassword(user.password as string).pipe(
@@ -136,6 +141,7 @@ export class UserService {
 
 
   mapUser(result: any, isGet: boolean): any {
+    console.log(result)
     const user = {
       id: isGet ? result._id : null,
       name: result.name,
@@ -144,7 +150,8 @@ export class UserService {
       lastname: result.lastname,
       imgProfile: result.imgProfile,
       lastLogin: result.lastLogin,
-      createAt: result.createAt
+      createAt: result.createAt,
+      role: result.role.name
     }
     return user;
   }

@@ -4,7 +4,7 @@ import { Schema } from 'mongoose';
 export const UserSchema = new Schema({
   email: { type: String, required: true },
   userName: { type: String, required: true },
-  password: { type: String},
+  password: { type: String },
   name: { type: String, required: true },
   lastname: { type: String, required: true },
   imgProfile: { type: String, default: '' },
@@ -16,5 +16,6 @@ export const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  files: [{type: Schema.Types.ObjectId, ref: 'fs.files'}]
+  files: [{ type: Schema.Types.ObjectId, ref: 'fs.files' }],
+  role: { type: Schema.Types.Mixed, ref: 'Role' }
 });

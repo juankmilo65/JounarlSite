@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDTO {
-  
+
   @ApiProperty()
   email: String;
 
@@ -9,23 +9,26 @@ export class CreateUserDTO {
   password: String;
 
   @ApiProperty()
-  readonly _id: String;
+  _id: String;
 
   @ApiProperty()
-  readonly userName: String;
+  userName: String;
 
   @ApiProperty()
-  readonly name: String;
+  name: String;
 
   @ApiProperty()
-  readonly lastname: String;
+  lastname: String;
 
   @ApiProperty()
-  readonly imgProfile: String;
+  imgProfile: String;
 
   @ApiProperty()
-  readonly lastLogin: Date;
+  lastLogin: Date;
 
   @ApiProperty()
-  readonly createAt: Date;
+  createAt: Date;
+
+  @ApiProperty()
+  role: String;
 }
