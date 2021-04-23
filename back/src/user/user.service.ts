@@ -41,29 +41,28 @@ export class UserService {
 
   validateUsersByUserAndPassword(login: LoginDTO): Observable<any | string> {
     return from(this.userModel.findOne({ userName: login.userName })).pipe(
-      //map((user: User) => {
-      //if (user) {
-      //this.test(login, user);
-      switchMap((user: User) => this.authService.comparePasswords(login.password as string, user.password as string)
-        .pipe(
-          concatMap(async (match: boolean) => {
-            var isValid = await of(match).pipe(
-              map(result => {
-                return result
-              })
-            ).toPromise()
+      switchMap((user: User) => {
+        if (user) {
+          return this.authService.comparePasswords(login.password as string, user.password as string)
+            .pipe(
+              concatMap(async (match: boolean) => {
+                var isValid = await of(match).pipe(
+                  map(result => {
+                    return result
+                  })
+                ).toPromise()
 
-            if (isValid) {
-              return this.authService.generateJWT(user).toPromise();
-            } else {
-              return 'Wrong Credentials';
-            }
-          })
-        ))
-      // } else {
-      //   return 'Wrong User';
-      // }
-      //})
+                if (isValid) {
+                  return this.authService.generateJWT(user).toPromise();
+                } else {
+                  return 'Wrong Credentials';
+                }
+              })
+            )
+        } else {
+          return of('Wrong User');
+        }
+      })
     )
   }
 
