@@ -128,7 +128,7 @@ export class UserService {
 
   updateUser(id: string, user: CreateUserDTO): Observable<User> {
     delete user.email;
-    return from(this.userModel.findByIdAndUpdate({ _id: id }, user, { new: true }).populate('role')).pipe(
+    return from(this.userModel.findByIdAndUpdate({ _id: id }, user, { new: true, useFindAndModify: false }).populate('role')).pipe(
       map((user: User) => {
         return this.mapUser(user, true)
       })
