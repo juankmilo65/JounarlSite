@@ -7,6 +7,7 @@ import {
   Res,
   HttpStatus,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UserService } from './user.service';
@@ -57,6 +58,11 @@ export class UserController {
     else {
       return throwError({ error: 'User already exist.' });
     }
+  }
+
+  @Put('/updateUser/:id')
+  updateUser(@Param('id') id: string, @Body() user: User): Observable<User> {
+    return this.userService.updateUser(id, user);
   }
 
   @Post('/relateJournalToUser')

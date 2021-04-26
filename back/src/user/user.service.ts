@@ -126,11 +126,13 @@ export class UserService {
     }
   }
 
-  async updateUser(_id: string, user: CreateUserDTO): Promise<Observable<User>> {
+  updateUser(id: string, user: CreateUserDTO): Observable<User> {
     delete user.email;
-    delete user.password;
-
-    return from(this.userModel.findByIdAndUpdate({ _id: _id }, user));
+    return from(this.userModel.findByIdAndUpdate({ _id: id }, user, { new: true }).populate('role')).pipe(
+      map((user: User) => {
+        return this.mapUser(user, true)
+      })
+    )
   }
 
 
