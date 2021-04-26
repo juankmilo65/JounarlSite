@@ -13,7 +13,7 @@ import { UserService } from './user.service';
 import { User } from './interfaces/User';
 import { RelateJournalUserDTO } from './dto/relateJournalUser.dto';
 import { LoginDTO } from './dto/login.dto';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { from, Observable, of, throwError } from 'rxjs';
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guards';

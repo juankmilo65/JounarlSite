@@ -20,12 +20,6 @@ export class UserService {
   async getUsers(): Promise<any> {
     const result = [];
 
-
-    // return from(this.userModel.find().populate('role').then(users => {
-    //   console.log(users[0].role)
-    //   return users;
-    // }))
-
     return from(this.userModel.find().populate('role')).pipe(
       map((users: User[]) => {
         users.map(user => { result.push(this.mapUser(user, true)) });
@@ -82,7 +76,7 @@ export class UserService {
   }
 
   getUserById(id: string): Observable<any> {
-    return from(this.userModel.findById(id)).pipe(
+    return from(this.userModel.findById(id).populate('role')).pipe(
       map((user: User) => {
         return this.mapUser(user, true)
       })
@@ -92,7 +86,7 @@ export class UserService {
   createUser(user: CreateUserDTO): Observable<User> {
     return this.authService.hashPassword(user.password as string).pipe(
       switchMap((passwordHash: string) => {
-        const newUser = new this.userModel(user);
+        const newUser = new this.userModel(user).populate('role');
         newUser.password = passwordHash
         return from(newUser.save()).pipe(
           map((user: User) => {
@@ -141,7 +135,6 @@ export class UserService {
 
 
   mapUser(result: any, isGet: boolean): any {
-    console.log(result)
     const user = {
       id: isGet ? result._id : null,
       name: result.name,

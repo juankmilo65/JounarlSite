@@ -17,5 +17,5 @@ export const UserSchema = new Schema({
     default: Date.now,
   },
   files: [{ type: Schema.Types.ObjectId, ref: 'fs.files' }],
-  role: { type: Schema.Types.Mixed, ref: 'Role' }
+  role: { type: Schema.Types.ObjectId, ref: 'Role' }
 });

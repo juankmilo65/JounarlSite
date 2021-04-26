@@ -5,7 +5,6 @@ import { Observable } from "rxjs";
 import { User } from "src/user/interfaces/User";
 import { map } from "rxjs/operators";
 
-
 @Injectable()
 export class RolesGuard implements CanActivate {
     constructor(
@@ -22,20 +21,19 @@ export class RolesGuard implements CanActivate {
         }
 
         const request = context.switchToHttp().getRequest();
-        const user: User = request.user;
+        const user: User = request.user.user;
 
-        return true;
-        // return this.userService.getUserById(user.id).pipe(
-        //     map((user: User) => {
-        //         const hasRole = () => roles.indexOf(user.role) > -1;
-        //         let hasPermission: boolean = false;
+        return this.userService.getUserById(user.id).pipe(
+            map((user: User) => {
+                const hasRole = () => roles.indexOf(user.role as unknown as string) > -1;
+                let hasPermission: boolean = false;
 
-        //         if (hasRole()) {
-        //             hasPermission = true;
-        //         };
-        //         return user && hasPermission;
-        //     })
-        // )
+                if (hasRole()) {
+                    hasPermission = true;
+                };
+                return user && hasPermission;
+            })
+        )
     }
 }
 

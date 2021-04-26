@@ -1,4 +1,7 @@
+import { Prop } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
+import { Schema, Types } from 'mongoose';
+import { RoleSchema } from '../../role/schema/role.schema';
 
 export class CreateUserDTO {
 
