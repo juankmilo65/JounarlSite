@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './interfaces/User';
-import { Model } from 'mongoose';
+import { Model, PaginateModel } from 'mongoose';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { RelateJournalUserDTO } from './dto/relateJournalUser.dto';
 import { LoginDTO } from './dto/login.dto';
 import { AuthService } from 'src/auth/services/auth.service';
-import { from, Observable, throwError, of } from 'rxjs';
+import { from, Observable, throwError, of, OperatorFunction } from 'rxjs';
 import { switchMap, map, catchError, concatMap } from 'rxjs/operators'
 
 @Injectable()
@@ -14,18 +14,29 @@ export class UserService {
 
   constructor(
     @InjectModel('User') private readonly userModel: Model<User>,
+    @InjectModel('User') private readonly paginateUserModel: PaginateModel<User>,
     private authService: AuthService
   ) { }
 
   async getUsers(): Promise<any> {
     const result = [];
 
-    return from(this.userModel.find().populate('role')).pipe(
-      map((users: User[]) => {
-        users.map(user => { result.push(this.mapUser(user, true)) });
-        return result
-      })
-    )
+    const options = {
+      populate: [
+        'role'
+      ],
+      page: Number(2),
+      limit: Number(2),
+    };
+
+    return await this.paginateUserModel.paginate(null, options);
+
+    // return from(this.paginateUserModel.paginate()).pipe(
+    //   map((users: User[]) => {
+    //     users.map(user => { result.push(this.mapUser(user, true)) });
+    //     return result
+    //   })
+    // )
   }
 
   async validateUser(user: CreateUserDTO): Promise<any> {

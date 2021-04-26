@@ -8,6 +8,7 @@ import {
   HttpStatus,
   UseGuards,
   Put,
+  Query
 } from '@nestjs/common';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UserService } from './user.service';
@@ -22,7 +23,7 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService,) { }
+  constructor(private userService: UserService) { }
 
   @hasRoles('Admin')
   @UseGuards(JwtAuthGuard, RolesGuard)

@@ -1,4 +1,6 @@
 import { Schema } from 'mongoose';
+//import { mongoosePaginate } from 'mongoose-paginate-v2'
+import * as mongoosePaginate from 'mongoose-paginate-v2';
 
 
 export const UserSchema = new Schema({
@@ -19,3 +21,5 @@ export const UserSchema = new Schema({
   files: [{ type: Schema.Types.ObjectId, ref: 'fs.files' }],
   role: { type: Schema.Types.ObjectId, ref: 'Role' }
 });
+
+UserSchema.plugin(mongoosePaginate);
