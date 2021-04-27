@@ -28,8 +28,8 @@ export class UserController {
   @hasRoles('Admin')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('/getUsers')
-  getUsers(): Promise<User[]> {
-    return this.userService.getUsers();
+  getUsers(@Query('page') page: number = 1, @Query('limit') limit: number = 10): Promise<User[]> {
+    return this.userService.getUsers(page, limit);
   }
 
   @Post('/login')

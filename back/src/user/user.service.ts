@@ -18,25 +18,19 @@ export class UserService {
     private authService: AuthService
   ) { }
 
-  async getUsers(): Promise<any> {
-    const result = [];
-
+  async getUsers(page: number, limit: number): Promise<any> {
+    var newDocs = [];
     const options = {
-      populate: [
-        'role'
-      ],
-      page: Number(2),
-      limit: Number(2),
+      populate: 'role',
+      page: Number(page),
+      limit: Number(limit),
     };
 
-    return await this.paginateUserModel.paginate(null, options);
+    var result = await this.paginateUserModel.paginate({}, options);
+    result.docs.forEach((v) => { newDocs.push(this.mapUser(v, true)) })
+    result.docs = newDocs;
 
-    // return from(this.paginateUserModel.paginate()).pipe(
-    //   map((users: User[]) => {
-    //     users.map(user => { result.push(this.mapUser(user, true)) });
-    //     return result
-    //   })
-    // )
+    return result;
   }
 
   async validateUser(user: CreateUserDTO): Promise<any> {
