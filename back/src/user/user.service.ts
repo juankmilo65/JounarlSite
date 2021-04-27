@@ -133,13 +133,24 @@ export class UserService {
 
   updateUser(id: string, user: CreateUserDTO): Observable<User> {
     delete user.email;
+    delete user.password;
+    delete user.role;
+
+    console.log(user)
+    return this.updateuserRepo(id, user);
+  }
+
+  updateRoleUser(id: string, user: CreateUserDTO): Observable<User> {
+    return this.updateuserRepo(id, user);
+  }
+
+  updateuserRepo(id: string, user: CreateUserDTO): Observable<User> {
     return from(this.userModel.findByIdAndUpdate({ _id: id }, user, { new: true, useFindAndModify: false }).populate('role')).pipe(
       map((user: User) => {
         return this.mapUser(user, true)
       })
     )
   }
-
 
   mapUser(result: any, isGet: boolean): any {
     const user = {

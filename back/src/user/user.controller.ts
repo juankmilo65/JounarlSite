@@ -68,6 +68,13 @@ export class UserController {
     return this.userService.updateUser(id, user);
   }
 
+  @hasRoles('Admin')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Put('/updateRoleUser/:id/role')
+  updateRoleUser(@Param('id') id: string, @Body() user: User): Observable<User> {
+    return this.userService.updateRoleUser(id, user);
+  }
+
   @Post('/relateJournalToUser')
   async relateJournalToUser(@Res() res, @Body() relation: RelateJournalUserDTO): Promise<User> {
     const userUpdated = await this.userService.relateJournalToUser(relation);
