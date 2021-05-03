@@ -1,7 +1,9 @@
-import React,{useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
+import { ISpiner } from '../../interfaces';
+
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -10,13 +12,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleBackdrop({spinner}) {
+export default function SimpleBackdrop(props: ISpiner): JSX.Element {
+  const { isActive } = props;
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  
+  const [open, setOpen] = useState<boolean>(false);
+
   useEffect(() => {
-        setOpen(spinner);
-}, [spinner])
+    setOpen(isActive);
+  }, [isActive])
 
   return (
     <div>
@@ -26,3 +29,4 @@ export default function SimpleBackdrop({spinner}) {
     </div>
   );
 }
+

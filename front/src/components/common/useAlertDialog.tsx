@@ -1,4 +1,4 @@
-import React , {useState, useEffect}from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -6,6 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Document, Page, pdfjs } from 'react-pdf';
+import { IAlertDialog } from '../../interfaces';
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const options = {
@@ -13,42 +14,39 @@ const options = {
   cMapPacked: true,
 };
 
-export default function AlertDialog(props) {
+export default function AlertDialog(props: IAlertDialog): JSX.Element {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
-    if(props.message !== null )
-    {
+    if (props.message !== null) {
       setText(props.message);
-      setOpen(true);   
+      setOpen(true);
     }
-}, [props.message])
+  }, [props.message])
 
-   const handleClose = () => {
+  const handleClose = () => {
     setText("");
     props.onChange();
     setOpen(false);
   };
 
-  const onDocumentLoadSuccess=( numPages ) => {
+  const onDocumentLoadSuccess = (numPages: any) => {
     setNumPages(numPages);
   }
-  const goToPrevPage = () =>
-  {
+  const goToPrevPage = () => {
     setPageNumber(pageNumber - 1)
   }
-  
-const goToNextPage = () =>
-{
-  setPageNumber(pageNumber + 1)
-}
-  
+
+  const goToNextPage = () => {
+    setPageNumber(pageNumber + 1)
+  }
+
   return (
     <div>
-     
+
       <Dialog
         open={open}
         onClose={handleClose}
@@ -57,25 +55,25 @@ const goToNextPage = () =>
       >
         <DialogTitle id="alert-dialog-title">{"Alert"}</DialogTitle>
         <DialogContent>
-        {props.message === "PDF"?
-         <DialogContentText id="alert-dialog-description">
-        <Document
-        file={props.file}
-        onLoadSuccess={onDocumentLoadSuccess}
-        options={options}
-      >
-        <Page pageNumber={pageNumber} />
-      </Document>
-     
-      <nav>
-          <button onClick={goToPrevPage}>Prev</button>
-          <button onClick={goToNextPage}>Next</button>
-        </nav>
-      </DialogContentText>: 
-          <DialogContentText id="alert-dialog-description">
+          {props.message === "PDF" ?
+            <DialogContentText id="alert-dialog-description">
+              <Document
+                file={props.file}
+                onLoadSuccess={onDocumentLoadSuccess}
+                options={options}
+              >
+                <Page pageNumber={pageNumber} />
+              </Document>
+
+              <nav>
+                <button onClick={goToPrevPage}>Prev</button>
+                <button onClick={goToNextPage}>Next</button>
+              </nav>
+            </DialogContentText> :
+            <DialogContentText id="alert-dialog-description">
               {text}
-          </DialogContentText>
-           }
+            </DialogContentText>
+          }
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -83,7 +81,7 @@ const goToNextPage = () =>
           </Button>
         </DialogActions>
       </Dialog>
-     
+
     </div>
   );
 }

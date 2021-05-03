@@ -1,0 +1,6 @@
+.container{
+    width: 1100px;
+    margin: 0px auto;
+    color: white;
+    min-height: calc(100vh - 50px - 100px);
+}

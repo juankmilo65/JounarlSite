@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -13,9 +13,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import UseAlertDialog from "../common/useAlertDialog";
 import UseSimpleBackdrop from "../common/useSimpleBackdrop";
-import { apiServices } from "../../configuration/constant";
+// import { apiServices } from "../../configuration/constant";
 import UseCopyright from "../common/useCopyright";
 import axios from 'axios';
+import { IFromEvent } from '../../interfaces';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,63 +40,62 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function UseSignUp() {
-    const classes = useStyles();
-    const history = useHistory();
-    const [openSpinner, setOpenSpinner] = useState(false);
-    const [redirect, setRedirect] = useState(false);
-    const [userLog, setUserLog] = useState("");
-    const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [message, setMessage] = useState(null);
-    
-    const singUp = async (e) => {
+  const classes = useStyles();
+  const history = useHistory();
+  const [openSpinner, setOpenSpinner] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const [userLog, setUserLog] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [message, setMessage] = useState("");
+
+  const singUp = async (e: IFromEvent) => {
     e.preventDefault();
     setOpenSpinner(true);
-    await axios.post(apiServices+"/user/createUser", {
-        "userName": userLog,
-        "password": password,
-        "name": name,
-        "lastname": lastName
+    // await axios.post(apiServices + "/user/createUser", {
+    await axios.post("/user/createUser", {
+      "userName": userLog,
+      "password": password,
+      "name": name,
+      "lastname": lastName
     }).then(res => {
-        setOpenSpinner(false);
-        setMessage(res.data.message);
+      setOpenSpinner(false);
+      setMessage(res.data.message);
     }).catch(error => {
-        setMessage("Error processing your data");
+      setMessage("Error processing your data");
     });
-}
+  }
 
-const redirectIndex = () => {
+  const redirectIndex = () => {
     setRedirect(true);
-}
-const handleOk = () =>
-{
-    if (message === 'User Successfully Created.')
-    {
-        redirectIndex();
+  }
+  const handleOk = () => {
+    if (message === 'User Successfully Created.') {
+      redirectIndex();
     }
-    setMessage(null);
-    
-}
+    setMessage("");
 
-const renderRedirect = () => {
+  }
+
+  const renderRedirect = () => {
     if (redirect) {
-        history.push('/');
+      history.push('/');
     }
-}
+  }
 
-return (
+  return (
     <Container component="main" maxWidth="xs">
-        <UseSimpleBackdrop spinner ={openSpinner}/>
-        <CssBaseline />
-        <div className={classes.paper}>
+      <UseSimpleBackdrop isActive={openSpinner} />
+      <CssBaseline />
+      <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} onSubmit={(e)=> singUp(e)}>
+        <form className={classes.form} onSubmit={(e) => singUp(e)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -108,10 +108,10 @@ return (
                 label="First Name"
                 autoFocus
                 onChange={event => {
-                    const { value } = event.target;
-                    setName(value);
-                  }}
-               
+                  const { value } = event.target;
+                  setName(value);
+                }}
+
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -124,9 +124,9 @@ return (
                 name="lastName"
                 autoComplete="lname"
                 onChange={event => {
-                    const { value } = event.target;
-                    setLastName(value);
-                  }}
+                  const { value } = event.target;
+                  setLastName(value);
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -139,9 +139,9 @@ return (
                 name="email"
                 autoComplete="email"
                 onChange={event => {
-                    const { value } = event.target;
-                    setUserLog(value);
-                  }}
+                  const { value } = event.target;
+                  setUserLog(value);
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -155,9 +155,9 @@ return (
                 id="password"
                 autoComplete="current-password"
                 onChange={event => {
-                    const { value } = event.target;
-                    setPassword(value);
-                  }}
+                  const { value } = event.target;
+                  setPassword(value);
+                }}
               />
             </Grid>
           </Grid>
@@ -172,7 +172,7 @@ return (
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2" onClick={()=>redirectIndex()}>
+              <Link href="#" variant="body2" onClick={() => redirectIndex()}>
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -180,9 +180,9 @@ return (
         </form>
       </div>
       <Box mt={5}>
-      <UseCopyright />
+        <UseCopyright />
       </Box>
-      {message !== null?<UseAlertDialog message={message} onChange={handleOk}/>: <div></div>}
+      {message !== "" ? <UseAlertDialog message={message} onChange={handleOk} /> : <div></div>}
       {renderRedirect()}
     </Container>
   );

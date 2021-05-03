@@ -1,0 +1,15 @@
+header{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #101010;
+    height: 100px;
+    width: 100%;
+    color: white;
+
+}
+
+.title{
+    margin-left: 50px;
+}
+

@@ -1,0 +1,5 @@
+.loginContainer{
+    width:calc(100% - 20px);
+    height: 100px;
+    padding: 10px;
+}

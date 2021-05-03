@@ -1,0 +1,11 @@
+
+.mainMenu > ul > li{
+    float: left;
+    list-style: none;
+    margin: 10px;
+    line-height: 30px;
+}
+
+.maiMenuColor{
+    color: white;
+}
