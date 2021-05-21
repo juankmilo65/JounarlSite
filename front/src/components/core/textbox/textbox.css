@@ -1,11 +1,11 @@
 .textField{
-    font-family: inherit;
+  font-family: inherit;
   width: 100%;
   border: 0;
-  border-bottom: 2px solid $gray;
+  border-bottom: 2px solid var(--gray);
   outline: 0;
   font-size: 1.3rem;
-  color: $white;
+  color: var(--withe);
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;

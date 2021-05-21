@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../styles/loging.css'
-import Textbox from "../core";
+import { Textbox } from "../core";
 
 export default function useLogin() {
     return (

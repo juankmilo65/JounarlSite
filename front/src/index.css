@@ -1,5 +1,8 @@
 :root{
-  --hardGray: gray;
+  --gray: #9b9b9b;
+  --withe:#fff;
+  --primary: #11998e;
+  --secondary: #38ef7d;
 }
 
 *{
