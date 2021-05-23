@@ -1,6 +1,10 @@
+.wrapper{
+    position: relative;
+}
+
 .container{
-    width: 1100px;
+    width: 100%;
     margin: 0px auto;
     color: white;
-    min-height: calc(100vh - 50px - 100px);
+    min-height: calc(100vh - 100px);
 }

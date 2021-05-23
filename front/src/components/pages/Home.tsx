@@ -7,7 +7,7 @@ import '../../styles/home.css'
 
 export default function Home() {
     return (
-        <>
+        <div className="wrapper">
             <Header />
             <div className="container">
                 <Login />
@@ -15,6 +15,6 @@ export default function Home() {
             </div >
             <div className="clearFix" />
             <Footer />
-        </>
+        </div>
     )
 }

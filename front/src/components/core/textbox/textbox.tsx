@@ -4,7 +4,7 @@ import './textbox.css'
 const Textbox = () => {
     return (
         <div>
-            <input className="textField" type="text"></input>
+            <input className="loginInput" type="text"></input>
         </div>
     )
 }
