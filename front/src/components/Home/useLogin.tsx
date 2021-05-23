@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../styles/loging.css'
-import Textbox from "../core";
 import indexImg from "../../assets/img/index.png"
+import { Textbox, SubmitButton, Link, Check, Title, Subtitle} from '../core'
 
 export default function useLogin() {
     return (
@@ -10,8 +10,20 @@ export default function useLogin() {
                 <img src={indexImg} alt="Logo"/>
             </div>
             <form className="form">
-                <Textbox></Textbox>
-                <Textbox></Textbox>
+                <Title value="Sing in to BiBook"></Title>
+                <div className="subtitle">
+                    <Subtitle value="Please enter your sing in details. Sing up here if you are not register yet."></Subtitle>
+                </div>
+                <Textbox className="input" placeholder= "User" type="email"/>
+                <Textbox className="input" placeholder= "Password" type="Password"/>
+                <div className="rememberme">
+               <Check/>
+               </div>
+               <div className="logingButton">
+                   <SubmitButton className="login" value="Sing in"/>
+               </div>
+               
+               <Link className="link" href="test" value="Forgot password?"/>
             </form>
         </div>
     )

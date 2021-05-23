@@ -1,0 +1,8 @@
+.link{
+    background: none;
+    border: none;
+    padding: 0;
+    color: #fff;
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -8,13 +8,13 @@ import '../../styles/home.css'
 export default function Home() {
     return (
         <div className="wrapper">
-            <Header />
+            {/* <Header /> */}
             <div className="container">
                 <Login />
                 {/* <Content /> */}
             </div >
             <div className="clearFix" />
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

@@ -1,11 +1,16 @@
 import React from 'react'
+import { ITextBox } from '../../../interfaces/Core'
 import './textbox.css'
 
-const Textbox = () => {
+
+const Textbox = (props: ITextBox) => {
+
+var { className,placeholder, type}= props;
+
     return (
-        <div>
-            <input className="loginInput" type="text"></input>
-        </div>
+        <>
+            <input className={className} type={type} placeholder={placeholder}></input>
+        </>
     )
 }
 

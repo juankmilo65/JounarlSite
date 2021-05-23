@@ -1,7 +1,7 @@
 .loginContainer{
     display: flex;
     flex-wrap: wrap; 
-    margin:  0 30px;
+    margin:  100px 30px 50px ;
     height: calc(100vh - 100px - 50px);
 }
 
@@ -9,14 +9,31 @@
     flex: 1;
     text-align: center;
     padding: 30px;
+    min-width: 50vh;
 } 
 
 .form-img{
     display: flex;
     flex: 1;
-    padding: 10px;
+    padding: 20px;
 }
 
 .form-img img{
     width: calc(100% - 20px);
+}
+
+.logingButton {
+    width: calc(100% + 30px);
+    margin-top: 32px;
+}
+
+.rememberme{
+    display: flex;
+    margin-top: 32px;
+}
+
+.subtitle{
+    display: flex;
+    margin-top: 32px;
+    margin-bottom: 32px;
 }
