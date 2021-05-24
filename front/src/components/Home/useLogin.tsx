@@ -24,7 +24,11 @@ export default function useLogin() {
                </div>
                
                <Link className="link" href="test" value="Forgot password?"/>
+             
             </form>
+            <div className="splitContainer">
+            Or
+            </div>
         </div>
     )
 }

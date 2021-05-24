@@ -1,8 +1,7 @@
 .loginContainer{
     display: flex;
     flex-wrap: wrap; 
-    margin:  100px 30px 50px ;
-    height: calc(100vh - 100px - 50px);
+    margin:  0px 30px ;
 }
 
 .form{
@@ -36,4 +35,32 @@
     display: flex;
     margin-top: 32px;
     margin-bottom: 32px;
+}
+
+.splitContainer{
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 61px;
+    padding: 0px 61px;
+    justify-content: center;
+}
+
+.splitContainer::before,
+.splitContainer::after {
+    position: absolute;
+    left: 0;
+    width: 50%;
+    content: '';
+    border-right: 1px solid #e0e0e0;
+   }
+
+.splitContainer::before{
+    top:20px;
+    bottom: calc(50% + 20px);
+}
+
+.splitContainer::after{
+    top: calc(50% + 20px);
+    bottom: 20px;
 }
