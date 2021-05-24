@@ -1,25 +1,16 @@
 .loginContainer{
     display: flex;
     flex-wrap: wrap; 
-    margin:  0px 30px ;
+    margin:  0px 30px;
+    justify-content: center;
 }
 
 .form{
-    flex: 1;
+    
     text-align: center;
     padding: 30px;
     min-width: 50vh;
 } 
-
-.form-img{
-    display: flex;
-    flex: 1;
-    padding: 20px;
-}
-
-.form-img img{
-    width: calc(100% - 20px);
-}
 
 .logingButton {
     width: calc(100% + 30px);
@@ -63,4 +54,15 @@
 .splitContainer::after{
     top: calc(50% + 20px);
     bottom: 20px;
+}
+
+.socialNetwork{
+    display: flex;
+    padding: 30px 0;
+    min-width: 16vh;
+    flex-direction: column;
+}
+
+.socialNetwork div {
+    margin: 15px;
 }

@@ -2,14 +2,14 @@ import React from 'react'
 import '../../styles/loging.css'
 import indexImg from "../../assets/img/index.png"
 import { Textbox, SubmitButton, Link, Check, Title, Subtitle} from '../core'
+import {ImGoogle2, ImFacebook2} from 'react-icons/im';
+
+
 
 export default function useLogin() {
     return (
         <div className="loginContainer">
-            <div  className="form-img" >
-                <img src={indexImg} alt="Logo"/>
-            </div>
-            <form className="form">
+                     <form className="form">
                 <Title value="Sing in to BiBook"></Title>
                 <div className="subtitle">
                     <Subtitle value="Please enter your sing in details. Sing up here if you are not register yet."></Subtitle>
@@ -28,6 +28,14 @@ export default function useLogin() {
             </form>
             <div className="splitContainer">
             Or
+            </div>
+            <div className="socialNetwork">
+                <div>
+                <ImFacebook2/> Facebook
+                </div>
+                <div>
+                <ImGoogle2/> Google    
+                </div>
             </div>
         </div>
     )
