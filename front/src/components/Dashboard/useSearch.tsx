@@ -1,13 +1,16 @@
 import React from 'react'
 import '../../styles/search.css'
+import { SubmitButton, Textbox, Title } from '../core'
 
 export default function useSearch() {
     return (
         <aside >
-            <h2>Buscar</h2>
+           <Title value="Search"></Title>
             <form>
-                <input type="text"></input>
-                <input type="submit" value="Buscar"></input>
+            <div className="inputSearch">
+            <Textbox className="input" placeholder= "Search" type="text"/>
+            </div>
+            <SubmitButton className="login" value="Search"/>
             </form>
         </aside>
     )

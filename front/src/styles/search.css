@@ -1,0 +1,7 @@
+aside{
+    min-width: 100%;
+}
+
+.inputSearch{
+    width: calc(100% - 30px);
+}

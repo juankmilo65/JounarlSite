@@ -4,7 +4,7 @@ import '../../styles/content.css'
 
 export default function useContent(): JSX.Element {
     return (
-        <>
+        <div className="content">
             <div className="section">
                 <section >
                     Conent
@@ -13,6 +13,6 @@ export default function useContent(): JSX.Element {
             <div className="search">
                 <Search />
             </div>
-        </>
+        </div>
     )
 }

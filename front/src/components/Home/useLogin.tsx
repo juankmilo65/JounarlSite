@@ -1,6 +1,5 @@
 import React from 'react'
 import '../../styles/loging.css'
-import indexImg from "../../assets/img/index.png"
 import { Textbox, SubmitButton, Link, Check, Title, Subtitle} from '../core'
 import {ImGoogle2, ImFacebook2} from 'react-icons/im';
 
