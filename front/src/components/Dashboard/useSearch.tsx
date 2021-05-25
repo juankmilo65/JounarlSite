@@ -4,7 +4,7 @@ import { SubmitButton, Textbox, Title } from '../core'
 
 export default function useSearch() {
     return (
-        <aside >
+        <aside className="searchContainer" >
            <Title value="Search"></Title>
             <form>
             <div className="inputSearch">

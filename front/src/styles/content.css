@@ -3,23 +3,27 @@
     flex-wrap: wrap;
     margin:  0px 50px;
     justify-content: center;
-    height: calc(100vh - 100px - 50px);
+    min-height: calc(100vh - 100px - 50px);
 }
 
 .section{
-    display: flex;
+    display: block;
     float: left;
     flex: 2;
     margin: 0 10px;
     min-width: calc(80% - 20px);
-    background: gray;
     min-height:500px;
     padding: 10px;
+    align-items: center;
 }
 
 .search{
-     display: flex;
+    display: flex;
     min-width: 61px;
     flex: 1;
 }
 
+.documents{
+    display: flex;
+    flex-wrap: wrap;
+}
