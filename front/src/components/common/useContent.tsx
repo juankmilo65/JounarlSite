@@ -10,7 +10,7 @@ export default function useContent(): JSX.Element {
 
     for (var i = 0; i < 5; i++) {
       rows.push(<>
-      <Title value="Author one"></Title>
+      <Title value={"Author " + i}></Title>
         <div className="autorContainer">
             <AutorSection></AutorSection>
         </div>

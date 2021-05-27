@@ -1,9 +1,9 @@
 .box{
     width: 130px;
     height: 137px;
-    padding: 15px;
+    padding: 12px;
     margin: 15px 0 116px;
-    text-align: justify;
+    text-align: center;
 }
 
  .box img {
@@ -19,7 +19,7 @@
     height: 200px;
     padding: 0 10px;
     margin: 0 0 48px;
-    text-align: justify;
+    text-align: center;
  }
 
 

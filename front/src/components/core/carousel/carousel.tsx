@@ -7,6 +7,12 @@ import { Card } from '..';
 const CarouselComponent = (props: any) => {
 
     const {} = props;
+    var rows = [];
+
+    for (var i = 0; i < 4 ; i++) {
+      rows.push(<Card  isCarousel={true} className="carouselBox" key={i} />);  
+    }
+
     return (
          <>
           <Carousel
@@ -21,10 +27,7 @@ const CarouselComponent = (props: any) => {
               },
             ]}
           >
-         <Card className="carouselBox" />
-         <Card className="carouselBox" />
-         <Card className="carouselBox" />
-         <Card className="carouselBox" />
+            {rows}
           </Carousel>
          </>
     )
