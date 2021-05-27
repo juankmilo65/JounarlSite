@@ -4,3 +4,6 @@ export  { default as Link} from './link/link';
 export  { default as Check} from './check/check';
 export  {default as Title } from './titles/title'; 
 export  {default as Subtitle } from './titles/subtitles';
+export  {default as Content } from './titles/content';
+export  {default as Card } from './card/card';
+export { default as CarouselComponent } from './carousel/carousel'

@@ -11,10 +11,10 @@
     float: left;
     flex: 2;
     margin: 0 10px;
-    min-width: calc(80% - 20px);
+    min-width: calc(70% - 20px);
     min-height:500px;
-    padding: 10px;
-    align-items: center;
+    padding: 0 10px;
+    text-align: center;
 }
 
 .search{
@@ -26,4 +26,13 @@
 .documents{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.autorContainer{
+    margin: 50px 0 0;
+}
+
+.div{
+    margin-top: 70px;
 }
