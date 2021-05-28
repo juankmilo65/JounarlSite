@@ -14,7 +14,9 @@ export default function useSearch() {
             <SubmitButton className="login" value="Search"/>
             </form>
            </div>
-         <List items={listLatSearch} />
+           <div className="mostSearchedDocuments">
+            <List items={listLatSearch} />
+           </div>
         </aside>
     )
 }
