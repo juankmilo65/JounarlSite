@@ -5,3 +5,8 @@
 .inputSearch{
     width: calc(100% - 30px);
 }
+
+.searcSticky{
+    position: sticky;
+    top: 70px;
+    background: black;}

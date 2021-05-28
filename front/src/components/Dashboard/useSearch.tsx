@@ -1,17 +1,20 @@
 import React from 'react'
 import '../../styles/search.css'
-import { SubmitButton, Textbox, Title } from '../core'
+import { List, SubmitButton, Textbox, Title } from '../core'
 
 export default function useSearch() {
+    var listLatSearch = ["Search 1","Search 2","Search 3","Search 3","Search 4","Search 5"]
     return (
         <aside className="searchContainer" >
-           <Title value="Search"></Title>
+          <div className="searcSticky" >
             <form>
             <div className="inputSearch">
             <Textbox className="input" placeholder= "Search" type="text"/>
             </div>
             <SubmitButton className="login" value="Search"/>
             </form>
+           </div>
+         <List items={listLatSearch} />
         </aside>
     )
 }

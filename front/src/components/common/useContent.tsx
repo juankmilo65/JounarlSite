@@ -5,10 +5,8 @@ import '../../styles/content.css'
 import { Title } from '../core'
 
 export default function useContent(): JSX.Element {
-    
     var rows = [];
-
-    for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < 5; i++) {
       rows.push(<>
       <Title value={"Author " + i}></Title>
         <div className="autorContainer">
@@ -26,6 +24,7 @@ export default function useContent(): JSX.Element {
             <div className="search">
                 <Search />
             </div>
+            
         </div>
     )
 }

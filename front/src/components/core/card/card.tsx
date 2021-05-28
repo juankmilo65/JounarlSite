@@ -1,16 +1,16 @@
 import React from 'react'
 import { Content, Subtitle } from '..'
-import paper from  '../../../img/paper.jpg';
+
 import { ICard } from '../../../interfaces/Core';
 import './card.css'
 
 const Card = (props:ICard) => {
 
-const { className, isCarousel} = props;
+const { className, isCarousel, img  } = props;
 
     return (
         <div className={className}>
-        <img src={paper}  />
+        <img src={img}  />
         {isCarousel ?
         <>
          <Subtitle value="Beauty Ttle"></Subtitle>

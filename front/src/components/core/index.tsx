@@ -7,3 +7,4 @@ export  {default as Subtitle } from './titles/subtitles';
 export  {default as Content } from './titles/content';
 export  {default as Card } from './card/card';
 export { default as CarouselComponent } from './carousel/carousel'
+export { default as List } from './list/list'
