@@ -51,11 +51,6 @@ export default function useContent(): JSX.Element {
                 >
          {authorSections}
         </InfiniteScroll>
-
-               
-            
-            
-            
             </div>
             <div className="search">
                 <Search />
