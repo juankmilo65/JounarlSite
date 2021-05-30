@@ -1,5 +1,7 @@
 :root{
   --hardGray: gray;
+  --header-sticky-top: calc(100vh - 135px);
+  --header-sticky-bottom: calc(100vh + 65px);
 }
 
 *{

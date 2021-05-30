@@ -54,8 +54,7 @@ export default function useContent(): JSX.Element {
             </div>
             <div className="search">
                 <Search />
-            </div>
-            
+            </div> 
         </div>
     )
 }
