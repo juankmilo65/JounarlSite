@@ -10,10 +10,10 @@ export default function Home() {
         <div className="wrapper">
             <Header />
             <div className="container">
-                {/* <Login /> */}
-                <Content />
+                 <Login />
+                {/* <Content /> */}
             </div >
-            {/* <Footer /> */}
+            <Footer /> 
         </div>
     )
 }

@@ -1,10 +1,26 @@
-.wrapper{
-    position: relative;
+/*Resolution Iphone X*/
+@media screen and (min-device-width: 375px) and (max-device-width: 1200px)  { 
+    .wrapper{
+       display: flex;
+       flex-direction: column;
+    }
+
+    .container{
+        flex-basis: 689px;
+        color: white;
+    }
 }
 
-.container{
-    width: 100%;
-    margin: 0 0 14px;
-    color: white;
-    min-height: calc(100vh - 250px);
+/*Resolution >= 13' */
+@media screen and (min-device-width: 1200px) { 
+    .wrapper{
+        position: relative;
+    }
+    
+    .container{
+        width: 100%;
+        margin: 0 0 14px;
+        color: white;
+        min-height: calc(100vh - 250px);
+    }
 }

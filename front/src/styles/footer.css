@@ -2,8 +2,21 @@
     left: 0;
     width: 100%;
     text-align:center;
-    height: 200px;
     line-height: 50px;
     background: #101010;
     color: white;
+}
+
+/*Resolution Iphone X*/
+@media screen and (min-device-width: 375px) and (max-device-width: 1200px)  { 
+    .footerContent{
+        height: 71px;
+    }
+}
+
+/*Resolution >= 13' */
+@media screen and (min-device-width: 1200px) { 
+    .footerContent{
+        height: 200px;
+    }
 }

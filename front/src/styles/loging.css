@@ -1,58 +1,12 @@
-.loginContainer{
-    display: flex;
-    flex-wrap: wrap; 
-    margin:  0px 30px;
-    justify-content: center;
-}
-
-.form{
-    text-align: center;
-    padding: 30px;
-    min-width: 50vh;
-} 
-
-.logingButton {
-    width: calc(100% + 30px);
-    margin-top: 32px;
-}
-
-.rememberme{
-    display: flex;
-    margin-top: 32px;
-}
-
 .subtitle{
     display: flex;
     margin-top: 32px;
     margin-bottom: 32px;
 }
 
-.splitContainer{
-    position: relative;
+.rememberme{
     display: flex;
-    align-items: center;
-    min-width: 61px;
-    padding: 0px 61px;
-    justify-content: center;
-}
-
-.splitContainer::before,
-.splitContainer::after {
-    position: absolute;
-    left: 0;
-    width: 50%;
-    content: '';
-    border-right: 1px solid #e0e0e0;
-   }
-
-.splitContainer::before{
-    top:20px;
-    bottom: calc(50% + 20px);
-}
-
-.splitContainer::after{
-    top: calc(50% + 20px);
-    bottom: 20px;
+    margin-top: 32px;
 }
 
 .socialNetwork{
@@ -64,4 +18,97 @@
 
 .socialNetwork div {
     margin: 15px;
+}
+
+/*Resolution Iphone X*/
+@media screen and (min-device-width: 375px)  and (max-device-width: 1200px) { 
+    .loginContainer{
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center;
+    }
+   
+    .form{
+        text-align: center;
+        padding: 30px;
+    } 
+
+    .logingButton {
+        width: 100%; 
+        margin-top: 32px;
+    }
+
+    .splitContainer{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .splitContainer::before,
+    .splitContainer::after {
+        position: absolute;
+        transform: rotate(-90deg);
+        left: 90px;
+        height: 16%;
+        content: '';
+        border-right: 1px solid #e0e0e0;
+   }
+
+   .splitContainer::before{
+        left:90px;
+    }
+
+    .splitContainer::after{
+        left: calc(50% + 90px);
+    }
+}
+
+/*Resolution >= 13' */
+@media screen and (min-device-width: 1200px) { 
+    .loginContainer{
+        display: flex;
+        flex-wrap: wrap; 
+        margin:  0px 30px;
+        justify-content: center;
+    }
+
+    .form{
+        text-align: center;
+        padding: 30px;
+        min-width: 50vh;
+    } 
+
+    .logingButton {
+        width: calc(100% + 2px);
+        margin-top: 32px;
+    }
+
+    .splitContainer{
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-width: 61px;
+        padding: 0px 61px;
+        justify-content: center;
+    }
+
+    .splitContainer::before,
+    .splitContainer::after {
+        position: absolute;
+        left: 0;
+        width: 50%;
+        content: '';
+        border-right: 1px solid #e0e0e0;
+   }
+
+    .splitContainer::before{
+        top:20px;
+        bottom: calc(50% + 20px);
+    }
+
+    .splitContainer::after{
+        top: calc(50% + 20px);
+        bottom: 20px;
+    }
 }
