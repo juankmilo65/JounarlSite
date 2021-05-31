@@ -8,7 +8,7 @@ const List = (props: IList) => {
 
     return (
         <>
-            <ul  className="ulContainer">
+            <ul className="ulContainer">
                 {listItems}
             </ul>
         </>

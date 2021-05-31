@@ -1,8 +1,26 @@
 :root{
   --hardGray: gray;
-  --header-sticky-top: calc(100vh - 135px);
   --header-sticky-bottom: calc(100vh + 65px);
 }
+
+/*Resolution >= 13' */
+@media screen and (min-device-width: 1200px) { 
+
+    :root{
+      --header-sticky-top: calc(100vh - 495px);
+    }
+}
+
+/*Resolution >= 1400px' */
+@media screen 
+  and (min-device-width: 1400px) { 
+
+    :root{
+      --header-sticky-top: calc(100vh - 574px);
+    }
+}
+
+
 
 *{
   margin: 0px;
@@ -23,3 +41,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+

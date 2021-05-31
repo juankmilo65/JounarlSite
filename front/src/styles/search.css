@@ -13,10 +13,20 @@
 }
 
 .mostSearchedDocuments{
-    margin-top: 40px;
+    margin-top: 20px;
     position: sticky;
     top: calc(-1px + -1 * var(--header-sticky-top));
     bottom: calc(-1px + -1 * var(--header-sticky-bottom));
     z-index: -1;
     min-height: 738px;
 }
+
+.topTen{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 15px;
+}
+
+
+
+        
