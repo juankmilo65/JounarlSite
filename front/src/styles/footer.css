@@ -10,7 +10,7 @@
 /*Resolution Iphone X*/
 @media screen and (min-device-width: 375px) and (max-device-width: 1200px)  { 
     .footerContent{
-        height: 71px;
+        height: 54px;
     }
 }
 

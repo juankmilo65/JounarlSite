@@ -1,25 +1,9 @@
 :root{
   --hardGray: gray;
+  --primary-color: #20b49c;
   --header-sticky-bottom: calc(100vh + 65px);
+  --primary-color-dark: darken(var(--primary-color), 10% );
 }
-
-/*Resolution >= 13' */
-@media screen and (min-device-width: 1200px) { 
-
-    :root{
-      --header-sticky-top: calc(100vh - 495px);
-    }
-}
-
-/*Resolution >= 1400px' */
-@media screen 
-  and (min-device-width: 1400px) { 
-
-    :root{
-      --header-sticky-top: calc(100vh - 574px);
-    }
-}
-
 
 
 *{
@@ -41,6 +25,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/*Resolution Iphone X*/
+@media screen and (min-device-width: 375px) and (max-device-width: 1200px)  { 
+ 
+}
+
+/*Resolution >= 13' */
+@media screen and (min-device-width: 1200px) { 
+
+    :root{
+      --header-sticky-top: calc(100vh - 495px);
+    }
+}
+
+/*Resolution >= 1400px' */
+@media screen 
+  and (min-device-width: 1400px) { 
+
+    :root{
+      --header-sticky-top: calc(100vh - 574px);
+    }
+}
+
+
+
 
 
 
