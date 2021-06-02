@@ -12,15 +12,7 @@
 
 /*Resolution Iphone X*/
 @media screen and (min-device-width: 375px) and (max-device-width: 1200px)  { 
-    .mainMenu{
-        visibility: hidden;
-        margin-top: 199px;
-        transform: translateX(100%);
-        height: fit-content;
-        width: fit-content;
-        background-color: black;
-        transition: 0.45s;
-    }
+
 }
 
 /*Resolution >= 13' */

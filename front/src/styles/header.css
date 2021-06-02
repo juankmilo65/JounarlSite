@@ -20,21 +20,29 @@ header{
     .hamburger{
         display: flex;
         cursor: pointer;
-        margin-left: auto;
+        margin-right: 20px;
     }
 
-    .nav-is-toggled > div > div header > .mainMenu{
-        transform: translateX(0);  
-        opacity: 1;  
-        visibility: visible;
-        height: fit-content;
-        width: fit-content;
-    }   
+    .menu{
+       display: none;
+    }
+
+    .mobileMenu{
+        display: flex;
+    }
 }
 
 /*Resolution >= 13' */
 @media screen and (min-device-width: 1200px) { 
     .hamburger{
+        display: none;
+    }
+
+    .menu{
+        display: flex;
+    }
+
+    .mobileMenu{
         display: none;
     }
 }
